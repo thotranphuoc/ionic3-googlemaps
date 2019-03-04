@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Events } from 'ionic-angular';
 import { iLocation } from '../../interfaces/location.interface';
 import { LocalService } from '../../services/local.service';
 import { DbService } from '../../services/db.service';
@@ -41,8 +41,9 @@ export class LocationAddPage {
     private modalCtrl: ModalController,
     private localService: LocalService,
     private dbService: DbService,
-    private appService: AppService
-    
+    private appService: AppService,
+    private event: Events
+
   ) {
     // this.LOCATION = this.localService.LOCATION_DEFAULT
   }
@@ -64,26 +65,26 @@ export class LocationAddPage {
       })
   }
 
-  selectQuestionType(qt){
+  selectQuestionType(qt) {
     console.log(qt);
     this.getQuestionsOfType(qt.id);
   }
 
-  getQuestionsOfType(ID){
+  getQuestionsOfType(ID) {
     console.log(ID);
-    let index = this.QUESTIONTYPES.map(q=> q.id).indexOf(ID);
+    let index = this.QUESTIONTYPES.map(q => q.id).indexOf(ID);
     console.log(index);
-    this.QUESTIONTYPES.splice(index,1);
+    this.QUESTIONTYPES.splice(index, 1);
     this.dbService.getAllQuestionsOfType(ID)
-    .then((res: any[]) => {
-      console.log(res);
-      this.QUESTIONS = res;
-      this.TYPES +=ID + ';'
-      this.navCtrl.push('LocationQuestionPage',{QUESTIONS: res});
-    })
-    .catch(err => {
-      console.log(err);
-    })
+      .then((res: any[]) => {
+        console.log(res);
+        this.QUESTIONS = res;
+        this.TYPES += ID + ';'
+        this.navCtrl.push('LocationQuestionPage', { QUESTIONS: res });
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   getLocationTypes() {
@@ -97,20 +98,20 @@ export class LocationAddPage {
       })
   }
 
-  send2Admin(){
+  send2Admin() {
     console.log(this.LOCATION)
-    if( this.checkIfFullFill() ){
+    if (this.checkIfFullFill()) {
       this.doSend2Admin(1);
-    }else{
+    } else {
       this.appService.showAlert('Lỗi', 'Xin vui lòng điền đầy đủ thông tin');
     }
   }
 
-  save(){
+  save() {
     console.log(this.LOCATION)
-    if( this.checkIfFullFill() ){
+    if (this.checkIfFullFill()) {
       this.doSend2Admin(0);
-    }else{
+    } else {
       this.appService.showAlert('Lỗi', 'Xin vui lòng điền đầy đủ thông tin');
     }
   }
@@ -119,40 +120,58 @@ export class LocationAddPage {
     console.log(this.LOCATION);
     console.log('Star: ' + this.LOCATION.Star);
     console.log(this.TYPES, this.localService.STRING);
-    if(this.localService.USER){
-      this.dbService.locationNewAdd(this.LOCATION.Latitude,this.LOCATION.Longitude,this.LOCATION.Title,this.LOCATION.Address,this.LOCATION.Phone, this.LOCATION.User_Phone, this.LOCATION.LocationType_Ref,this.TYPES, this.LOCATION.Star, this.localService.STRING , active)
-      .then((res) => {
-        console.log(res);
-        return this.updateScoreAndLevel()
-      })
-      .then((res)=>{
-        console.log(res);
-        this.appService.presentToast('Thành công', 5000)
-        this.navCtrl.setRoot('MapPage');
-      })
-      .catch(err => {
-        console.log(err);
-      })
-    }else{
+    if (this.localService.USER) {
+      this.dbService.locationNewAdd(this.LOCATION.Latitude, this.LOCATION.Longitude, this.LOCATION.Title, this.LOCATION.Address, this.LOCATION.Phone, this.LOCATION.User_Phone, this.LOCATION.LocationType_Ref, this.TYPES, this.LOCATION.Star, this.localService.STRING, active)
+        .then((res) => {
+          console.log(res);
+          return this.updateScoreAndLevel()
+        })
+        .then((res) => {
+          console.log(res);
+          this.appService.presentToast('Thành công', 5000)
+          this.navCtrl.setRoot('MapPage');
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    } else {
       this.go2Login();
     }
 
   }
 
+  // updateLocation() {
+  //   let CURRENT_LOCATION = this.localService.USER_CURRENT_LOCATION;
+  //   let mapModal = this.modalCtrl.create('LocationSetNewPage', { CURRENT_LOCATION: CURRENT_LOCATION });
+  //   mapModal.onDidDismiss((data: any) => {
+  //     console.log(data);
+  //     // if (data) {
+  //     //   this.SHOP.SHOP_LOCATION = data.NEW_LOCATION;
+  //     // }
+  //     if (data.NEW_LOCATION) {
+  //       this.LOCATION.Latitude = data.NEW_LOCATION.lat;
+  //       this.LOCATION.Longitude = data.NEW_LOCATION.lng;
+  //     }
+  //   })
+  //   mapModal.present();
+  // }
+
   updateLocation() {
+    let sub: any
     let CURRENT_LOCATION = this.localService.USER_CURRENT_LOCATION;
-    let mapModal = this.modalCtrl.create('LocationSetNewPage', { CURRENT_LOCATION: CURRENT_LOCATION });
-    mapModal.onDidDismiss((data: any) => {
+    this.navCtrl.push('LocationSetNewPage', { CURRENT_LOCATION: CURRENT_LOCATION });
+     this.event.subscribe('on-location-set', (data: any) => {
       console.log(data);
-      // if (data) {
-      //   this.SHOP.SHOP_LOCATION = data.NEW_LOCATION;
-      // }
-      if (data.NEW_LOCATION) {
+      if (data) {
         this.LOCATION.Latitude = data.NEW_LOCATION.lat;
         this.LOCATION.Longitude = data.NEW_LOCATION.lng;
       }
+      this.event.unsubscribe('on-location-set');
+      if(typeof(sub) !=='undefined'){
+        sub.unsubscribe();
+      }
+      
     })
-    mapModal.present();
   }
 
   selectLocation(loc) {
@@ -160,32 +179,32 @@ export class LocationAddPage {
     this.LOCATION.LocationType_Ref = loc.LocationTypeID;
   }
 
-  go2Login(){
-    this.navCtrl.push('LoginPage',{isBack: true});
+  go2Login() {
+    this.navCtrl.push('LoginPage', { isBack: true });
   }
 
-  updateScoreAndLevel(){
+  updateScoreAndLevel() {
     let USER: iUser = this.localService.USER;
     let p1 = this.dbService.levelUpdate(USER.Email, USER.Level);
     let p2 = this.dbService.scoreUpdate(USER.Email, USER.Score);
-    Promise.all([p1,p1]).then((res)=>{
+    Promise.all([p1, p1]).then((res) => {
       console.log(res);
     })
-    .catch(err=>{
-      console.log(err);
-    })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
-  checkIfFullFill(){
+  checkIfFullFill() {
     let i = 0;
-    if(this.LOCATION.Address.trim().length<1) return false;
-    if(this.LOCATION.Latitude.toString().trim().length<1) return false;
-    if(this.LOCATION.Longitude.toString().trim().length<1) return false;
-    if(this.LOCATION.Phone.trim().length<1) return false;
-    if(this.LOCATION.Star.trim().length<1) return false;
-    if(this.LOCATION.Title.trim().length<1) return false;
-    if(this.LOCATION.User_Phone.trim().length<1) return false;
-    if(this.TYPES.trim().length<1) return false;
+    if (this.LOCATION.Address.trim().length < 1) return false;
+    if (this.LOCATION.Latitude.toString().trim().length < 1) return false;
+    if (this.LOCATION.Longitude.toString().trim().length < 1) return false;
+    if (this.LOCATION.Phone.trim().length < 1) return false;
+    if (this.LOCATION.Star.trim().length < 1) return false;
+    if (this.LOCATION.Title.trim().length < 1) return false;
+    if (this.LOCATION.User_Phone.trim().length < 1) return false;
+    if (this.TYPES.trim().length < 1) return false;
     return true;
   }
 

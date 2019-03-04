@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, Events } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 import {
   GoogleMaps,
@@ -22,7 +22,8 @@ export class LocationSetNewPage {
   constructor(
     public toastCtrl: ToastController,
     private viewCtrl: ViewController,
-    ) {
+    private event: Events
+  ) {
   }
 
   ionViewDidLoad() {
@@ -42,7 +43,7 @@ export class LocationSetNewPage {
         tilt: 30
       }
     });
-
+    this.onButtonClick();
   }
 
   onButtonClick() {
@@ -52,7 +53,7 @@ export class LocationSetNewPage {
     // Get the location of you
     this.map.getMyLocation()
       .then((location: MyLocation) => {
-        console.log(JSON.stringify(location, null ,2));
+        console.log(JSON.stringify(location, null, 2));
         this.location = location;
         // Move the map camera to the location with animation
         this.map.animateCamera({
@@ -60,23 +61,25 @@ export class LocationSetNewPage {
           zoom: 17,
           tilt: 30
         })
-        .then(() => {
-          // add a marker
-          let marker: Marker = this.map.addMarkerSync({
-            title: 'Chọn vị trí',
-            snippet: 'Vị trí bạn chọn',
-            position: location.latLng,
-            animation: GoogleMapsAnimation.BOUNCE
-          });
+          .then(() => {
+            // add a marker
+            let marker: Marker = this.map.addMarkerSync({
+              title: 'Chọn vị trí',
+              snippet: 'Vị trí bạn chọn',
+              position: location.latLng,
+              animation: GoogleMapsAnimation.BOUNCE
+            });
 
-          // show the infoWindow
-          marker.showInfoWindow();
+            // show the infoWindow
+            marker.showInfoWindow();
 
-          // If clicked it, display the alert
-          marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-            this.showToast(this.location.json());
+            // If clicked it, display the alert
+            marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+              this.showToast(this.location.json());
+            });
+
+
           });
-        });
       });
   }
 
@@ -96,10 +99,13 @@ export class LocationSetNewPage {
     //   lng: Number(this.NEW_SELECTED_LOCATION.lng.toFixed(8))
     // }
     let NEW_LOCATION = this.location.latLng;
-    console.log(NEW_LOCATION);
-    // this.viewCtrl.dismiss({ NEW_LOCATION: this.NEW_SELECTED_LOCATION })
+    // let NEW_LOCATION = 'some data';
+    // console.log(NEW_LOCATION);
+    // // this.viewCtrl.dismiss({ NEW_LOCATION: this.NEW_SELECTED_LOCATION })
     this.viewCtrl.dismiss({ NEW_LOCATION: NEW_LOCATION })
       .then((res) => { console.log(res) })
       .catch((err) => { console.log(err) });
+    
+    this.event.publish('on-location-set', { NEW_LOCATION: NEW_LOCATION });
   }
 }
