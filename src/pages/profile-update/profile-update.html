@@ -1,0 +1,52 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Cập nhật thông tin cá nhân</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="main" text-center >
+    <div class="inputs" *ngIf="USER">
+      <div class="avatar" (click)="takePhoto()">
+          <img src="{{base64Image}}" alt="" onError="this.src='../../assets/imgs/imagenotavailable.png';">
+      </div>
+
+      <input type="file" (change)="takePictureAndResizeByBrowser($event)" hidden accept="image/*" id="inputFile">
+      <div class="cls_update_information">
+        <div class="cls_label">Họ và tên:</div>
+        <input type="text" [(ngModel)]="USER.FullName" placeholder="Họ và tên" class="input_info"/>
+      </div>  
+      <div class="cls_update_information">
+        <div class="cls_label">Điểm:</div>
+        <input type="text" [(ngModel)]="USER.Score" placeholder="Điểm" class="input_info"/>
+      </div>  
+      <div class="cls_update_information">
+        <div class="cls_label">Cấp:</div>
+        <input type="text" [(ngModel)]="USER.Level" placeholder="Cấp" class="input_info"/>
+      </div>  
+      <div class="cls_update_information">
+        <div class="cls_label">Email:</div>
+        <input type="text" [(ngModel)]="USER.Email" placeholder="Email" class="input_info"/>
+      </div>  
+      <div class="cls_update_information">
+        <div class="cls_label">Số điện thoại:</div>
+        <input type="text" [(ngModel)]="USER.Phone" placeholder="Số điện thoại" class="input_info"/>
+      </div>  
+      <div class="cls_update_information">
+        <div class="cls_label">Điạ chỉ:</div>
+        <input type="text" [(ngModel)]="USER.Address" placeholder="Địa chỉ" class="input_info"/>
+      </div>  
+      <div class="cls_update_information">
+        <div class="cls_change_pass" (click) ="changePassword()">Thay đổi mật khẩu</div>
+      </div>  
+    </div>
+    <div class="btn">
+        <button (click)="update()">Sửa</button>
+        <button (click)="cancel()">Thoát</button>
+    </div>
+      
+</div>
+</ion-content>

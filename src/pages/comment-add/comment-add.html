@@ -1,0 +1,28 @@
+<!--
+  Generated template for the CommentAddPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Thêm comment</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+    <div class="inputs">
+        <textarea [(ngModel)]="CommentStr" name="CommentStr" id="" cols="40" rows="10"></textarea>
+    </div>
+    <div class="btn">
+      <button (click)="addComment()">Thêm Comment</button>
+    </div>
+
+<hr>
+<div class="comment" *ngFor="let COMMENT of COMMENTS">
+  <div id="massage">{{COMMENT.ContentMes}}</div>
+  <div id="name"><i>{{COMMENT.Name}}</i></div>
+  <div id="time"><i>{{COMMENT.Date_Comment}}</i></div>
+</div>
+</ion-content>

@@ -1,0 +1,65 @@
+<!--
+  Generated template for the LocationQuestionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Câu hỏi</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="main">
+    <div class="content_q">
+        <div class="header_question" *ngIf="USER">
+            <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    
+                  </ion-col>
+                  <ion-col>
+                    <label id="score">{{USER.Score}}</label>
+                  </ion-col>
+                  <ion-col>
+                      <label id="level">Level : {{USER.Level}}</label>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+        </div>
+        <div class="help_question">
+          <label><a href="#">Giúp đỡ</a></label>
+        </div>
+
+        <div class="image_desc">
+        <img [src]="SHOWN_QUESTION.imgdata">
+        </div>
+
+        <div class="content_question">
+            {{SHOWN_QUESTION.question_details}}
+        </div>
+
+        <div class="btn_question">
+            <ion-grid>
+                <ion-row>
+                  <ion-col>
+                      <button (click)="nextQuest('Yes',SHOWN_QUESTION.next_yes)">{{SHOWN_QUESTION.answer_yes}}</button>
+                  </ion-col>
+                  <ion-col>
+                      <button (click)="nextQuest('No',SHOWN_QUESTION.next_no)">{{SHOWN_QUESTION.answer_no}}</button>
+                  </ion-col>
+                  <ion-col>
+                      <button>Bỏ qua bộ câu hỏi</button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+        </div>
+
+
+    </div>
+  </div>
+</ion-content>
