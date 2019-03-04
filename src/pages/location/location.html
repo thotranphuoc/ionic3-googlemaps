@@ -1,0 +1,111 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Chi tiết địa điểm</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="main_loc" >
+    <div class="content_loc">
+        <div *ngIf="LOCATION">
+            <div id="Title" class="loc">{{LOCATION.Title}}</div>
+            <!-- <div class="star"><img src="{{STAR_URL}}" alt=""></div> -->
+            <ion-grid>
+              <ion-row *ngIf="LOCATION.Star =='0'">
+                <ion-col><img src="../../assets/imgs/star_gray.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_gray.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_gray.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_gray.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_gray.png" alt=""></ion-col>
+              </ion-row>
+              <ion-row *ngIf="LOCATION.Star =='1'">
+                <ion-col><img src="../../assets/imgs/star_yellow.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_gray.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_gray.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_gray.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_gray.png" alt=""></ion-col>
+              </ion-row>
+              <ion-row *ngIf="LOCATION.Star =='2'">
+                <ion-col><img src="../../assets/imgs/star_yellow.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_yellow.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_gray.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_gray.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_gray.png" alt=""></ion-col>
+              </ion-row>
+              <ion-row *ngIf="LOCATION.Star =='3'">
+                <ion-col><img src="../../assets/imgs/star_yellow.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_yellow.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_yellow.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_gray.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_gray.png" alt=""></ion-col>
+              </ion-row>
+              <ion-row *ngIf="LOCATION.Star =='4'">
+                <ion-col><img src="../../assets/imgs/star_yellow.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_yellow.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_yellow.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_yellow.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_gray.png" alt=""></ion-col>
+              </ion-row>
+              <ion-row *ngIf="LOCATION.Star =='5'">
+                <ion-col><img src="../../assets/imgs/star_yellow.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_yellow.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_yellow.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_yellow.png" alt=""></ion-col>
+                <ion-col><img src="../../assets/imgs/star_yellow.png" alt=""></ion-col>
+              </ion-row>
+            </ion-grid>
+            <div class="cls_address">
+              <div id="Address" class="loc">Địa chỉ: {{LOCATION.Address}}</div>
+              <div class ="cls_help"><button (click)="go2MapRoute()" >Chỉ đường</button></div>
+            </div>
+            <div id="Phone" class="loc">Điện thoại công trình: {{LOCATION.Phone}}</div>
+            <div id="FullName" class="loc">Người cập nhật: {{LOCATION.FullName}}</div>
+            <div id="Level" class="loc">Cấp: {{LOCATION.Level}}</div>
+            <div class="imformation">
+              <div><strong>Thông tin địa điểm</strong></div>
+              <div class="cls_type_loc"> 
+                <div class="cls_name">1. Lối vào </div>
+                <div *ngIf="!VALIDATIONS[0]" class ="cls_no"></div>
+                <div *ngIf="VALIDATIONS[0]" class ="cls_yes"></div>
+              </div>
+
+                
+              <div class="cls_type_loc">
+                <div class="cls_name">2. Cửa </div>
+                <div *ngIf="!VALIDATIONS[1]" class ="cls_no"></div>
+                <div *ngIf="VALIDATIONS[1]" class ="cls_yes"></div>
+              </div>
+              <div class="cls_type_loc"> 
+                <div class="cls_name">3. Bàn làm việc </div>
+                <div *ngIf="!VALIDATIONS[2]" class ="cls_no"></div>
+                <div *ngIf="VALIDATIONS[2]" class ="cls_yes"></div>
+              </div>
+              <div class="cls_type_loc">
+                <div class="cls_name">4. Thang máy </div>
+                <div *ngIf="!VALIDATIONS[3]" class ="cls_no"></div>
+                <div *ngIf="VALIDATIONS[3]" class ="cls_yes"></div>
+              </div>
+              <div class="cls_type_loc">
+                <div class="cls_name">5. Nhà vệ sinh </div>
+                <div *ngIf="!VALIDATIONS[4]" class ="cls_no"></div>
+                <div *ngIf="VALIDATIONS[4]" class ="cls_yes"></div>
+              </div>
+              <div class="cls_type_loc">
+                <div class="cls_name">6. Bãi đỗ xe </div>
+                <div *ngIf="!VALIDATIONS[5]" class ="cls_no"></div>
+                <div *ngIf="VALIDATIONS[5]" class ="cls_yes"></div>
+              </div>
+            </div>
+            
+            <div class="cls_footer">
+                <div class="cls_comment"><button (click)="go2CommentAdd()">Comment</button></div>
+                <div class ="cls_request_edit"><button (click)="go2RequestEdit()">Yêu cầu chỉnh sửa</button></div>
+              </div>
+          </div>
+    </div>
+  </div>
+</ion-content>

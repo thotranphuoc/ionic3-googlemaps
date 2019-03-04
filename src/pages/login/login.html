@@ -1,0 +1,42 @@
+<ion-content >
+  <div class="main" text-center >
+    <!-- <ion-item>
+      <ion-input #email required type="text" placeholder="Email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input #pw required type="password" placeholder="Password"></ion-input>
+    </ion-item>
+    <ion-button color="secondary" expand="block" (click)="login(email.value, pw.value)">Login</ion-button> -->
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <img src="../../assets/imgs/logo_usaid_chuan.png" class="head_logo"/>
+        </ion-col>
+        <ion-col>
+          
+        </ion-col>
+        <ion-col>
+          <img src="../../assets/imgs/drd_logo.png" class="head_logo"/>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  
+  <div class="logo"><img src="../../assets/imgs/icon_120.png"/></div>
+    
+    <div class="inputs">
+      <input #email required type="text" placeholder="Email" value="{{user_name}}">
+      <input #pw required type="password" placeholder="Mật khẩu" value="{{password}}">
+    </div>
+    <div class="btn">
+      <button (click)="login(email.value, pw.value)">Đăng Nhập</button>
+      <button (click)="donotLogin()">Sử dụng không cần đăng nhập</button>
+    </div>
+
+    <div class="dang_ky">
+      <a (click)="go2Register()">Đăng Ký</a>
+      <a (click)="go2ForgotPass()">Quên mật khẩu</a>
+    </div>
+  
+  </div>
+
+</ion-content>

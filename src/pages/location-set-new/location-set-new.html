@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Set Location</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h3>Chọn vị trí</h3>
+  <!-- <p>
+  This is a demo application of <b>@ionic-native/google-maps</b> plugin.
+  </p> -->
+  <div id="map_canvas1">
+    <button ion-button (click)="onButtonClick($event)">Chọn</button>
+    <button ion-button (click)="setLocation()">OK</button>
+  </div>
+</ion-content>
+<!-- <ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button block ion-button color="danger" (click)="cancelLocation()">CANCEL</button>
+      </ion-col>
+      <ion-col>
+        <button block ion-button (click)="setLocation()">OK</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer> -->

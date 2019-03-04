@@ -1,0 +1,108 @@
+page-location {
+
+}
+.imformation{
+    padding-top: 20px;
+}
+.star{
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+#Address{
+    width: 65%;
+    display: inline-table;
+    height: 25px;
+    vertical-align: middle;
+    padding: 0;
+}
+
+.cls_help
+{
+    width: 20% !important;
+    display: inline-block;
+}
+.cls_type_loc{
+    padding: 10px 0 0 15px;
+}
+.cls_name{
+    width: 50%;
+    display: inline-table;
+    height: 25px;
+    vertical-align: bottom;
+}
+
+.cls_yes{
+    width: 40px;
+    height: 25px;
+    background: blue;
+    display: inline-block;
+}
+.cls_no{
+    display: inline-block;
+    width: 40px;
+    height: 25px;
+    background: red;
+}
+
+.cls_comment
+{
+    width: 45%;
+    display: inline;
+}
+.cls_request_edit{
+    width: 45%;
+    display: inline-block;
+    
+}
+.cls_footer
+{
+    text-align: center;
+    margin: 0 auto;
+}
+.cls_request_edit button, .cls_comment button,{
+    background: #f68b21;
+    background-size: 100% 100%;
+    height: 40px;
+    width: 170px;
+    border-radius: 25px;
+    margin: 25px 0;
+    padding: 10px;
+    color: #000000;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.cls_help button{
+    background: #f68b21;
+    background-size: 100% 100%;
+    height: 40px;
+    width: 125px;
+    border-radius: 25px;
+    margin: 25px 0;
+    padding: 10px;
+    color: #000000;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+.main_loc{
+    text-align: left;
+}
+.loc
+{
+    padding-top: 10px;
+}
+#Title
+{
+    color: #0FA1E0;
+    font-weight: bold;
+}
+.content_loc
+{
+    padding: 10px;
+    height: 35px;
+}

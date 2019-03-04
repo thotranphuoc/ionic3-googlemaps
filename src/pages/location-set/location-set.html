@@ -1,0 +1,38 @@
+<ion-header>
+  
+  <!-- <ion-navbar>
+    <ion-title>Choose Location</ion-title>
+  </ion-navbar> -->
+
+</ion-header>
+
+
+<ion-content>
+<div #map1 id="map1"></div>
+<!-- <div class="button-confirm">
+  <button ion-button block (click)="setLocation()">OK</button>
+  <button ion-button block color="danger" (click)="cancelLocation()">Cancel</button>
+</div> -->
+<ion-fab right left>
+  <button ion-fab outline color="secondary" mini (click)="reloadMap()">
+    <ion-icon name="md-refresh"></ion-icon>
+  </button>
+</ion-fab>
+<ion-fab right top>
+  <button ion-fab outline color="secondary" mini (click)="centerMap()">
+    <ion-icon name="ios-locate-outline"></ion-icon>
+  </button>
+</ion-fab>
+</ion-content>
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button block ion-button color="danger" (click)="cancelLocation()">CANCEL</button>
+      </ion-col>
+      <ion-col>
+        <button block ion-button (click)="setLocation()">OK</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

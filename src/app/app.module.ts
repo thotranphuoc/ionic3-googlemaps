@@ -24,6 +24,17 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { GoogleMaps } from "@ionic-native/google-maps";
 import { MapTestPage } from '../pages/map-test/map-test';
 
+// From Dmap
+import { LoadingService } from '../services/loading.service';
+import { GmapService } from '../services/gmap.service';
+import { LocalService } from '../services/local.service';
+import { DbService } from '../services/db.service';
+import { AppService } from '../services/app.service';
+import { ImageService } from '../services/image.service';
+import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
+import { Geolocation } from '@ionic-native/geolocation';
+import {AgmCoreModule} from '@agm/core';
 @NgModule({
   declarations: [
     MyApp,
@@ -46,6 +57,12 @@ import { MapTestPage } from '../pages/map-test/map-test';
     BrowserModule,
     FormsModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey   : 'AIzaSyCjBaIhoK9XX4eOfeSsPb91bq14DO_gJUc',
+      libraries: ['places']
+    }),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -63,13 +80,22 @@ import { MapTestPage } from '../pages/map-test/map-test';
     TileOverlayPage,
     KmlOverlayPage,
     StreetViewPage,
-    MapTestPage
+    MapTestPage,
+    
   ],
   providers: [
     StatusBar,
     SplashScreen,
     GoogleMaps,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    // from Dmap
+    LoadingService,
+    GmapService,
+    LocalService,
+    DbService,
+    AppService,
+    ImageService,
+    Geolocation,
   ]
 })
 export class AppModule {}

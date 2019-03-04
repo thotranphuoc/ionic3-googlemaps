@@ -1,0 +1,55 @@
+page-register {
+
+}
+.main{
+    padding-top:10px;
+    background:#eeeeee;
+    // background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 100vh;
+    text-align: center;
+}
+
+.btn button{
+    background: #f68b21;
+    //background: transparent;
+    //background-image: url('../../assets/imgs/bg_login.png');
+    background-size: 100% 100%;
+    width: 80%;
+    height: 40px;
+
+    border-radius: 25px;
+    margin: 5px 0;
+    padding: 10px 0;
+    color: #000000;
+    font-weight: bold;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+.inputs{
+    padding-top: 3vh;
+    padding-bottom: 20px;
+}
+.inputs input{
+    background: #ffffff;
+    border: solid 2px #f68b21;
+    border-radius: 10px;
+    //background: transparent;
+    //background-image: url('../../assets/imgs/17login.png');
+    background-size: 100% 100%;
+    width: 80%;
+    height: 40px;
+    border: none;
+    margin: 5px 0;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 15px;
+    color: #000000;
+    
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #999999;
+    opacity: 1; /* Firefox */
+}
