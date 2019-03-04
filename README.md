@@ -11,3 +11,4 @@ This is a demo app of [@ionic-native/google-maps](https://www.npmjs.com/package/
 
 You need to replace `(REPLACE WITH YOUR APK KEY)` in config.xml and package.json files with your Google Maps API keys.
 # ionic3-googlemaps
+# ionic3-googlemaps
