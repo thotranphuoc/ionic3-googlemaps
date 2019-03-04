@@ -41,6 +41,7 @@ export class HomePage {
   }
 
   onButtonClick() {
+    console.log(this.map);
     this.map.clear();
 
     // Get the location of you

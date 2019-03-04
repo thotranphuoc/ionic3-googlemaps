@@ -22,6 +22,7 @@ import { StreetViewPage } from '../pages/street-view/street-view';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { GoogleMaps } from "@ionic-native/google-maps";
+import { MapTestPage } from '../pages/map-test/map-test';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { GoogleMaps } from "@ionic-native/google-maps";
     GroundOverlayPage,
     TileOverlayPage,
     KmlOverlayPage,
-    StreetViewPage
+    StreetViewPage,
+    MapTestPage
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,8 @@ import { GoogleMaps } from "@ionic-native/google-maps";
     GroundOverlayPage,
     TileOverlayPage,
     KmlOverlayPage,
-    StreetViewPage
+    StreetViewPage,
+    MapTestPage
   ],
   providers: [
     StatusBar,

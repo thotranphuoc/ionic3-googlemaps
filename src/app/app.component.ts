@@ -16,6 +16,7 @@ import { GroundOverlayPage } from '../pages/ground-overlay/ground-overlay';
 import { TileOverlayPage } from '../pages/tile-overlay/tile-overlay';
 import { KmlOverlayPage } from '../pages/kml-overlay/kml-overlay';
 import { StreetViewPage } from '../pages/street-view/street-view';
+import { MapTestPage } from '../pages/map-test/map-test';
 
 @Component({
   templateUrl: 'app.html'
@@ -33,6 +34,7 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
+      { title: 'test', component: MapTestPage},
       { title: 'Marker', component: MarkerPage },
       { title: 'MarkerCluster', component: MarkerClusterPage },
       { title: 'HtmlInfoWindow', component: HtmlInfoWindowPage },
