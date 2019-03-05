@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { LoadingController, Loading } from 'ionic-angular';
-import { ViewController } from 'ionic-angular/navigation/view-controller';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-// import { stringify } from '@angular/compiler/src/util';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
+import 'firebase/storage';
+
 
 @Injectable()
 
@@ -153,5 +156,32 @@ export class DbService {
         return this.httpClient.get(url).toPromise();
     }
 
+
+
+    //VERIFIED: upload one image, return url
+    uploadBase64Image2FBReturnPromiseWithURL(path: string, imageData: string, name: string) {
+        return new Promise((resolve, reject) => {
+            let storageRef = firebase.storage().ref(path + '/' + name);
+            let uploadTask = storageRef.putString(imageData, 'data_url');
+            uploadTask.on('state_changed', (snapshot: any)=>{
+                let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log(progress);
+            },(error)=>{
+                console.log(error);
+                reject(error);
+            },()=>{
+                // completed
+                uploadTask.snapshot.ref.getDownloadURL()
+                .then((downloadURL => {
+                    console.log(downloadURL);
+                    resolve(downloadURL);
+                }))
+                .catch((err) => {
+                    reject(err);
+                })
+            })
+            
+        })
+    }
     
 }
