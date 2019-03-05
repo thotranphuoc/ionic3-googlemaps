@@ -10,9 +10,17 @@ import { LocalService } from '../../services/local.service';
 import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { AppService } from '../../services/app.service';
-import { GoogleMap } from '@agm/core/services/google-maps-types';
+// import { GoogleMap } from '@agm/core/services/google-maps-types';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
 import {Keyboard} from '@ionic-native/keyboard';
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  Marker,
+  GoogleMapsAnimation,
+  MyLocation
+} from '@ionic-native/google-maps';
 
 declare var google: any;
 @IonicPage()
@@ -51,6 +59,8 @@ export class MapPage {
     { type: 'radio', label: 'Bình Định', value: '7', lat:14.1026697, lng: 108.4191822 , checked: false },
     { type: 'radio', label: 'Tây Ninh', value: '8', lat:11.3658548, lng: 106.059613 , checked: false },
   ]
+
+  gMap: GoogleMap
   constructor(
     private platform: Platform,
     private geolocation: Geolocation,
@@ -79,6 +89,8 @@ export class MapPage {
     this.getLocations();
     this.getLocationTypeSettings();
     this.locationHandle();
+
+    this.getCurrentLocation();
   }
 
   searchAddress()
@@ -178,7 +190,7 @@ export class MapPage {
           if (this.LOCATIONS.length > 0) {
             this.loadLocation2Map(this.FILTER_LOCATIONS);
           } else {
-            this.getLocations().then(() => {
+            this.getLocationsx().then(() => {
               this.loadLocation2Map(this.FILTER_LOCATIONS);
             })
           }
@@ -186,7 +198,37 @@ export class MapPage {
       })
   }
 
-  getLocations() {
+  getLocations(){
+    this.geolocation.getCurrentPosition().then(res=>{
+      console.log(res);
+      this.appService.showAlert('latLng','lat:' + res.coords.latitude.toString() + 'lng: ' +res.coords.longitude.toString())
+    }).catch(err=>{
+      this.appService.showAlert('latLng', err.message);
+    })
+  }
+
+  getCurrentLocation(){
+    this.gMap = GoogleMaps.create('map', {
+      camera: {
+        target: {
+          lat: 43.0741704,
+          lng: -89.3809802
+        },
+        zoom: 18,
+        tilt: 30
+      }
+    });
+    this.gMap.getMyLocation().then((location: MyLocation)=>{
+      let result = JSON.stringify(location, null, 2)
+      console.log(result);
+      this.appService.showAlert('Result', result);
+    }).catch((err)=>{
+      console.log(err);
+      this.appService.showAlert('Error', err.message);
+    })
+  }
+
+  getLocationsx() {
     return new Promise((resolve, reject) => {
       this.dbService.getLocations()
         .then((res: any) => {
