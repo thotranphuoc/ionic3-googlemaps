@@ -1,64 +1,43 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { LocalService } from '../../services/local.service';
-import { iUser } from '../../interfaces/user.interface';
-import { DbService } from '../../services/db.service';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { AppService } from '../../services/app.service';
+import { DbService } from '../../services/db.service';
+import { UserPhotoTakePage } from '../user-photo-take/user-photo-take';
+import { LocalService } from '../../services/local.service';
 import { ImageService } from '../../services/image.service';
 
+/**
+ * Generated class for the UploadImgPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
 @IonicPage()
 @Component({
-  selector: 'page-profile-update',
-  templateUrl: 'profile-update.html',
+  selector: 'page-upload-img',
+  templateUrl: 'upload-img.html',
 })
-export class ProfileUpdatePage {
-  USER: iUser;
-  base64Images = [];
+export class UploadImgPage {
+  //USER: iUser;
+  base64Images: string[] = [];
   base64Image = '';
   newPhoto = false;
+  hasNewAvatar: boolean = false;
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private localService: LocalService,
-    private dbService: DbService,
+    private navCtrl: NavController,
+    //private crudService: CrudService,
+    //private setGetService: SetgetService,
     private appService: AppService,
-    private imageService: ImageService
-  ) {
-    this.USER = this.localService.USER;
-    console.log(this.USER);
-  }
+    private modalCtrl: ModalController,
+    private dbService: DbService,
+    private localService: LocalService,
+    private imageService: ImageService,
+
+  ) { }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfileUpdatePage');
-    this.getAvatar(this.USER.Email);
-  }
-
-  update() {
-    console.log(this.USER);
-    this.dbService.profileUpdate(this.USER.FullName, this.USER.Address, this.USER.Email, this.USER.Phone)
-      .then((res: any) => {
-        console.log(res);
-        if (res.result == '1') {
-          this.appService.presentToast('Cập nhật thành công', 5000);
-          this.navCtrl.pop();
-        } else {
-          this.appService.presentToast('Lỗi, Xin vui lòng liên hệ với quản trị viên', 5000);
-        }
-      })
-      .catch((err) => {
-        this.appService.presentToast(err, 5000);
-      })
-  }
-
-  cancel() {
-    console.log('cancel');
-    this.navCtrl.pop();
-  }
-
-  changePassword() {
-    console.log('Change Password');
-    this.navCtrl.push('PasswordChangePage');
+    console.log('ionViewDidLoad UploadImgPage');
   }
 
   takePhoto() {
@@ -69,8 +48,6 @@ export class ProfileUpdatePage {
     console.log('start browsering or taking photo camera')
     document.getElementById('inputFile').click();
   }
-
-
 
   takePictureAndResizeByBrowser(event) {
     // this.base64ImagesThumbnail = [];
@@ -112,7 +89,7 @@ export class ProfileUpdatePage {
 
   updateAvatar() {
     //this.base64Image = this.base64Image.replace(/^data:image\/(png|jpg);base64,/, "");
-    this.dbService.avatarUpdate(this.USER.Email, this.base64Image)
+    this.dbService.avatarUpdate('luan@gmail.com', this.base64Image)
       .catch(err => {
         console.log(err);
       })
@@ -120,15 +97,5 @@ export class ProfileUpdatePage {
         console.log(res);
         
       })
-  }
-
-  getAvatar(email) {
-    this.dbService.avatarGet(email).then((res: any) => {
-      console.log(res);
-      this.base64Image = res.ImageBase;
-    })
-    .catch(err => {
-      console.log(err);
-    })
   }
 }

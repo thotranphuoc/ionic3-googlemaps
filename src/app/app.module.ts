@@ -35,6 +35,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation';
 import {AgmCoreModule} from '@agm/core';
+// firebase
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/messaging'
+import { firebaseConfig } from '../config/firebase-config';
+firebase.initializeApp(firebaseConfig);
 @NgModule({
   declarations: [
     MyApp,
