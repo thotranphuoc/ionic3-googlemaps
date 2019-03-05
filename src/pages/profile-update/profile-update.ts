@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { LocalService } from '../../services/local.service';
 import { iUser } from '../../interfaces/user.interface';
 import { DbService } from '../../services/db.service';
@@ -16,6 +16,8 @@ export class ProfileUpdatePage {
   USER: iUser;
   base64Images = [];
   base64Image = '';
+  //Image = '';
+  hasNewAvatar: boolean = false;
   newPhoto = false;
   constructor(
     public navCtrl: NavController,
@@ -23,7 +25,8 @@ export class ProfileUpdatePage {
     private localService: LocalService,
     private dbService: DbService,
     private appService: AppService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private modalCtrl: ModalController
   ) {
     this.USER = this.localService.USER;
     console.log(this.USER);
@@ -61,9 +64,37 @@ export class ProfileUpdatePage {
     this.navCtrl.push('PasswordChangePage');
   }
 
-  takePhoto() {
+  /*takePhoto() {
     this.selectPhotoByBrowser();
   }
+*/
+
+takePhoto() {
+  console.log('take Photo');
+  let photosModal = this.modalCtrl.create('PhotoTakePage', { PHOTOS: this.base64Images });
+  photosModal.onDidDismiss((data) => {
+    console.log(data);
+    this.base64Images = data.PHOTOS;
+    this.hasNewAvatar = true;
+    this.uploadImageThenUpdateURL();
+  });
+  photosModal.present()
+    .then((res) => { console.log(res) })
+    .catch((err) => { console.log(err) })
+}
+
+uploadImageThenUpdateURL() {
+  // console.log(this.PROFILE);
+  this.dbService.uploadBase64Image2FBReturnPromiseWithURL('Avatar/' + this.USER.Email, this.base64Images[0], this.USER.Email)
+    .then((downloadURL: string) => {
+      this.USER.Image = downloadURL;
+      console.log(this.USER);
+      // this.onUpdateProfile();
+      this.updateAvatar();
+    })
+    .catch((err) => console.log(err));
+}
+
 
   selectPhotoByBrowser() {
     console.log('start browsering or taking photo camera')
@@ -112,7 +143,7 @@ export class ProfileUpdatePage {
 
   updateAvatar() {
     //this.base64Image = this.base64Image.replace(/^data:image\/(png|jpg);base64,/, "");
-    this.dbService.avatarUpdate(this.USER.Email, this.base64Image)
+    this.dbService.avatarUpdateLink(this.USER.Email, this.USER.Image)
       .catch(err => {
         console.log(err);
       })

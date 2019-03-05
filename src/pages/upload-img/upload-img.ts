@@ -89,7 +89,7 @@ export class UploadImgPage {
 
   updateAvatar() {
     //this.base64Image = this.base64Image.replace(/^data:image\/(png|jpg);base64,/, "");
-    this.dbService.avatarUpdate('luan@gmail.com', this.base64Image)
+    this.dbService.avatarUpdateLink('luan@gmail.com', this.base64Image)
       .catch(err => {
         console.log(err);
       })

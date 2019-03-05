@@ -1,8 +1,8 @@
 export const firebaseConfig = {
-    apiKey: "AIzaSyDdStrfxz7nChIXZmqVRo9jDvwi3-Oix9s",
-    authDomain: "move-ability.firebaseapp.com",
-    databaseURL: "https://move-ability.firebaseio.com",
-    projectId: "move-ability",
-    storageBucket: "move-ability.appspot.com",
-    messagingSenderId: "863479813550"
+    apiKey: "AIzaSyATd_Vnjhses9lw8O7nY9mSTjAUnd3dyjM",
+    authDomain: "d-map-1525969165216.firebaseapp.com",
+    databaseURL: "https://d-map-1525969165216.firebaseio.com",
+    projectId: "d-map-1525969165216",
+    storageBucket: "d-map-1525969165216.appspot.com",
+    messagingSenderId: "426729491070"
 };

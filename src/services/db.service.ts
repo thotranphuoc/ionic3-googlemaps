@@ -116,11 +116,16 @@ export class DbService {
         return this.httpClient.get(url).toPromise(); 
     }
 
-    avatarUpdate(email: string, data64: string){
+    /*avatarUpdate(email: string, data64: string){
         let url = 'http://www.drdvietnam.org/bandotiepcan/service?action=ChangeImageInformation&email='+email+'&avata='+data64;
         return this.httpClient.get(url).toPromise();
     }
-    
+    */
+   avatarUpdateLink(email: string, link: string){
+    let url = 'http://www.drdvietnam.org/bandotiepcan/service?action=ChangeLinkImageInformation&email='+email+'&link='+link;
+    console.log(url);    
+    return this.httpClient.get(url).toPromise();
+}
     avatarGet(email: string){
         let url = 'http://www.drdvietnam.org/bandotiepcan/service?action=GetImageInformation&email='+email;
         return this.httpClient.get(url).toPromise();
