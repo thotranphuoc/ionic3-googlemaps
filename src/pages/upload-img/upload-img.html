@@ -1,0 +1,23 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Cập nhật thông tin cá nhân</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="main" text-center >
+    <div class="inputs">
+      <div class="avatar" (click)="takePhoto()">
+          <img src="{{base64Image}}" alt="" onError="this.src='../../assets/imgs/imagenotavailable.png';">
+      </div>
+      <input type="file" (change)="takePictureAndResizeByBrowser($event)" hidden accept="image/*" id="inputFile">
+    <div class="btn">
+        <button (click)="update()">Sửa</button>
+        <button (click)="cancel()">Thoát</button>
+    </div>
+    </div>
+</div>
+</ion-content>

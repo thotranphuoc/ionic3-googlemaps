@@ -65,6 +65,4 @@ export class MapTestPage {
     //   alert('clicked');
     // });
   }
-
-
 }
