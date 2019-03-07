@@ -117,6 +117,17 @@ page-autocomplete-modal {
     .list-md .item-block .item-inner {
       border-bottom: none;
     }
+
+    .searchbar-ios .searchbar-input {
+      border-radius: 10px;
+      height: 2.8em;
+      font-size: 1.6rem;
+      color: #000 !important;
+      background-color: #fff !important;
+      margin: 0;
+      padding: 0;
+      border: 1px solid #f68b21 !important;
+  }
   
   }
   
