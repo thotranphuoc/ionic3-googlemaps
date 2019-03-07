@@ -1,7 +1,6 @@
 <ion-header>
     <ion-toolbar color="login-green">
-      <ion-title>
-        Type an address    </ion-title>
+      <ion-title>Tìm địa điểm</ion-title>
       <ion-buttons start>
         <button tappable ion-button (click)="dismiss()">
           <ion-icon color="white" name="md-close" showWhen="android"></ion-icon>
@@ -14,8 +13,7 @@
   <ion-content padding>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Enter address</ion-title>
-        <ion-searchbar [(ngModel)]="autocomplete.query" [showCancelButton]="true"   (ionInput)="updateSearch()" (ionCancel)="dismiss()"></ion-searchbar>
+        <ion-searchbar [(ngModel)]="autocomplete.query" [showCancelButton]="true" (ionInput)="updateSearch()" (ionCancel)="dismiss()" placeholder="Nhập địa chỉ"></ion-searchbar>
       </ion-toolbar>
     </ion-header>
     
