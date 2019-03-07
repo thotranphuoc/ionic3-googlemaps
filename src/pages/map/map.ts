@@ -1,5 +1,5 @@
-import { Component, NgZone, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, AlertController, Platform, } from 'ionic-angular';
+import { Component, NgZone, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { IonicPage, NavController, NavParams, ActionSheetController, AlertController, Platform, ModalController, } from 'ionic-angular';
 import { LoadingService } from '../../services/loading.service';
 import { iPosition } from '../../interfaces/position.interface';
 import { GmapService } from '../../services/gmap.service';
@@ -21,8 +21,10 @@ import {
   GoogleMapsAnimation,
   MyLocation
 } from '@ionic-native/google-maps';
+import { AutoCompleteModalPage } from '../auto-complete-modal/auto-complete-modal';
 
 declare var google: any;
+
 @IonicPage()
 @Component({
   selector: 'page-map',
@@ -60,7 +62,8 @@ export class MapPage {
     { type: 'radio', label: 'Tây Ninh', value: '8', lat:11.3658548, lng: 106.059613 , checked: false },
   ]
 
-  gMap: GoogleMap
+  gMap: GoogleMap;
+  marker: any;
   constructor(
     private platform: Platform,
     private geolocation: Geolocation,
@@ -68,6 +71,7 @@ export class MapPage {
     public navParams: NavParams,
     private alertCtrl: AlertController,
     private actionSheetCtrl: ActionSheetController,
+    private modalCtrl: ModalController,
     private loadingService: LoadingService,
     private gmapService: GmapService,
     private dbService: DbService,
@@ -90,36 +94,36 @@ export class MapPage {
     this.getLocationTypeSettings();
     this.locationHandle();
 
-    this.getCurrentLocation();
+    // this.getCurrentLocation();
   }
 
-  searchAddress()
-  {
-    //load Places Autocomplete
-    /*this.mapsAPILoader.load().then(() => {
-      let nativeHomeInputBox = document.getElementById('txtHome').getElementsByTagName('input')[0];
-      let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
-          types: ["address"]
-      });
-      autocomplete.addListener("place_changed", () => {
-          this.ngZone.run(() => {
-              //get the place result
-              /*let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+  // searchAddress()
+  // {
+  //   //load Places Autocomplete
+  //   /*this.mapsAPILoader.load().then(() => {
+  //     let nativeHomeInputBox = document.getElementById('txtHome').getElementsByTagName('input')[0];
+  //     let autocomplete = new google.maps.places.Autocomplete(nativeHomeInputBox, {
+  //         types: ["address"]
+  //     });
+  //     autocomplete.addListener("place_changed", () => {
+  //         this.ngZone.run(() => {
+  //             //get the place result
+  //             /*let place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-              //verify result
-              if (place.geometry === undefined || place.geometry === null) {
-                  return;
-              }
+  //             //verify result
+  //             if (place.geometry === undefined || place.geometry === null) {
+  //                 return;
+  //             }
 
-              //set latitude, longitude and zoom
-              this.latitude = place.geometry.location.lat();
-              this.longitude = place.geometry.location.lng();
-              //this.zoom = 12;
+  //             //set latitude, longitude and zoom
+  //             this.latitude = place.geometry.location.lat();
+  //             this.longitude = place.geometry.location.lng();
+  //             //this.zoom = 12;
               
-          });
-      });
-  });*/
-  }
+  //         });
+  //     });
+  // });*/
+  // }
 
   getGeolocation() {
     this.geolocation.getCurrentPosition().then((res) => {
@@ -141,7 +145,6 @@ export class MapPage {
     this.loadingService.startLoading();
     setTimeout(() => {
       this.mapEl = document.getElementById('map');
-
       this.initMap(this.mapEl)
     }, 1000)
 
@@ -207,26 +210,26 @@ export class MapPage {
     })
   }
 
-  getCurrentLocation(){
-    this.gMap = GoogleMaps.create('map', {
-      camera: {
-        target: {
-          lat: 43.0741704,
-          lng: -89.3809802
-        },
-        zoom: 18,
-        tilt: 30
-      }
-    });
-    this.gMap.getMyLocation().then((location: MyLocation)=>{
-      let result = JSON.stringify(location, null, 2)
-      console.log(result);
-      this.appService.showAlert('Result', result);
-    }).catch((err)=>{
-      console.log(err);
-      this.appService.showAlert('Error', err.message);
-    })
-  }
+  // getCurrentLocation(){
+  //   this.gMap = GoogleMaps.create('map', {
+  //     camera: {
+  //       target: {
+  //         lat: 43.0741704,
+  //         lng: -89.3809802
+  //       },
+  //       zoom: 18,
+  //       tilt: 30
+  //     }
+  //   });
+  //   this.gMap.getMyLocation().then((location: MyLocation)=>{
+  //     let result = JSON.stringify(location, null, 2)
+  //     console.log(result);
+  //     this.appService.showAlert('Result', result);
+  //   }).catch((err)=>{
+  //     console.log(err);
+  //     this.appService.showAlert('Error', err.message);
+  //   })
+  // }
 
   getLocationsx() {
     return new Promise((resolve, reject) => {
@@ -489,30 +492,54 @@ export class MapPage {
     this.viewCtrl.dismiss(item);
   }
 
-  updateSearch() {
-    if (this.autocomplete.query == '') {
-      this.autocompleteItems = [];
-      return;
-    }
-    let self = this;
-    let config = {
-      types: ['address'], // other types available in the API: 'establishment', 'regions', and 'cities'
-      input: this.autocomplete.query
-    };
-    this.acService.getPlacePredictions(config, function (predictions, status) {
-      self.autocompleteItems = [];
-      if (predictions) {
-        predictions.forEach(function (prediction) {
-          self.autocompleteItems.push(prediction);
-        });
-      }
-      else {
-        console.log('no predictions');
-      }
+  // updateSearch() {
+  //   if (this.autocomplete.query == '') {
+  //     this.autocompleteItems = [];
+  //     return;
+  //   }
+  //   let self = this;
+  //   let config = {
+  //     types: ['address'], // other types available in the API: 'establishment', 'regions', and 'cities'
+  //     input: this.autocomplete.query
+  //   };
+  //   this.acService.getPlacePredictions(config, function (predictions, status) {
+  //     self.autocompleteItems = [];
+  //     if (predictions) {
+  //       predictions.forEach(function (prediction) {
+  //         self.autocompleteItems.push(prediction);
+  //       });
+  //     }
+  //     else {
+  //       console.log('no predictions');
+  //     }
+  //   });
+  // }
+
+  updateSearch(){
+    console.log('updateSearch');
+    let modal = this.modalCtrl.create(AutoCompleteModalPage);
+    let me = this;
+    modal.onDidDismiss(data => {
+      // this.address.place = data;
+      console.log(data);
+      this.map.setCenter(data.latLng);
+      this.map.setZoom(17)
+      this.addMarker(this.map, data.latLng);
+      // this.loadLocation2Map(this.LOCATIONS);
     });
+    modal.present();
   }
 
-
+  addMarker(map: any, POSITION: iPosition){
+    if(typeof(this.marker) !=='undefined'){
+      this.marker.setMap(null);
+    }
+    this.marker = new google.maps.Marker({
+      position: POSITION,
+      map: map,
+      title: 'You here'
+    });
+  }
 
 
 }

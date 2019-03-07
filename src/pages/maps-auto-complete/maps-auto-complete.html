@@ -1,0 +1,14 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>maps-auto-complete</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-searchbar (ionInput)="getItems($event)" [(ngModel)]="text" (ionChange)="getCode()"></ion-searchbar>
+  <button (click)="getCode()">Go</button>
+</ion-content>

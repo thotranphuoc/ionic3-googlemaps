@@ -5,12 +5,6 @@ import {AgmMap} from '@agm/core';
 import {MAP_STYLE} from '../../config/config';
 import {AutoCompleteModalPage} from '../auto-complete-modal/auto-complete-modal';
 declare var google: any;
-/**
- * Generated class for the MapAutocompletePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({

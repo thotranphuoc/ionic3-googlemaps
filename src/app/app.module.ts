@@ -59,7 +59,7 @@ firebase.initializeApp(firebaseConfig);
     KmlOverlayPage,
     StreetViewPage,
     MapTestPage,
-    //AutoCompleteModalPage
+    AutoCompleteModalPage
   ],
   imports: [
     BrowserModule,
@@ -89,6 +89,7 @@ firebase.initializeApp(firebaseConfig);
     KmlOverlayPage,
     StreetViewPage,
     MapTestPage,
+    AutoCompleteModalPage
     
   ],
   providers: [
