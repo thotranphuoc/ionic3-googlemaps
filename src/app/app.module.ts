@@ -40,6 +40,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/messaging'
 import { firebaseConfig } from '../config/firebase-config';
+import { AutoCompleteModalPage } from '../pages/auto-complete-modal/auto-complete-modal';
 firebase.initializeApp(firebaseConfig);
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ firebase.initializeApp(firebaseConfig);
     TileOverlayPage,
     KmlOverlayPage,
     StreetViewPage,
-    MapTestPage
+    MapTestPage,
+    //AutoCompleteModalPage
   ],
   imports: [
     BrowserModule,
@@ -65,7 +67,7 @@ firebase.initializeApp(firebaseConfig);
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     AgmCoreModule.forRoot({
-      apiKey   : 'AIzaSyCjBaIhoK9XX4eOfeSsPb91bq14DO_gJUc',
+      apiKey   : 'AIzaSyAf1-QYPFKYvSP4zsgd1rAPgGv_vsEWCzE',
       libraries: ['places']
     }),
     HttpClientModule

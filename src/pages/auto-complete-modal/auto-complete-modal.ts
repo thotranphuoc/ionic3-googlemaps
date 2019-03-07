@@ -37,7 +37,7 @@ export class AutoCompleteModalPage {
 
   ionViewDidLoad() {
     setTimeout(() => {
-      this.service = new google;
+      this.service = new google.maps.places.AutocompleteService();
       console.log(this.service);
     }, 1000);
   }
