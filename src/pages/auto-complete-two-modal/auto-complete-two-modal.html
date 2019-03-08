@@ -14,18 +14,18 @@
     <ion-header>
       <ion-toolbar>
         <ion-searchbar [(ngModel)]="autocomplete.query" [showCancelButton]="true" (ionInput)="updateSearchFrom()" (ionCancel)="dismiss()" placeholder="Chọn điểm bắt đầu"></ion-searchbar>
-        <ion-searchbar [(ngModel)]="autocomplete.queryto" [showCancelButton]="true" (ionInput)="updateSearchTo()" (ionCancel)="dismiss()" placeholder="Chọn điểm đến"></ion-searchbar>
+        <ion-searchbar [(ngModel)]="autocompleteto.queryto" [showCancelButton]="true" (ionInput)="updateSearchTo()" (ionCancel)="dismiss()" placeholder="Chọn điểm đến"></ion-searchbar>
       </ion-toolbar>
     </ion-header>
     
     <ion-content>
-      <ion-list>
+      <ion-list *ngIf="HideFrom==0">
         <ion-item *ngFor="let item of autocompleteItems" tappable   (click)="chooseItem(item)">
           {{ item }}
         </ion-item>
       </ion-list>
 
-      <ion-list>
+      <ion-list *ngIf="HideTo==0">
           <ion-item *ngFor="let item of autocompleteItemsto" tappable   (click)="chooseItemto(item)">
             {{ item }}
           </ion-item>

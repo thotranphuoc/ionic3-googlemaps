@@ -29,7 +29,13 @@ export class AutoCompleteTwoModalPage {
 
   latitudeto: number = 0;
   longitudeto: number = 0;
-  geo: any
+
+  DATA: any;
+  DATAto:any;
+  geo: any;
+
+  HideForm=0;
+  HideTo=0;
 
   service: any; // new google.maps.places.AutocompleteService();
 
@@ -63,7 +69,10 @@ export class AutoCompleteTwoModalPage {
         address: item
       }
       console.log(DATA);
-      this.viewCtrl.dismiss(DATA);
+      this.DATA=DATA;
+      this.autocomplete.query=item;
+      this.HideForm=1;
+      //this.viewCtrl.dismiss(DATA);
     })
     
     // this.geo = item;
@@ -77,7 +86,10 @@ export class AutoCompleteTwoModalPage {
         address: item
       }
       console.log(DATAto);
-      this.viewCtrl.dismiss(DATAto);
+      this.DATAto=DATAto;
+      this.autocompleteto.queryto=item;
+      this.HideTo=1;
+      //this.viewCtrl.dismiss(DATAto);
     })
     // this.geo = item;
     // this.geoCode(this.geo);//convert Address to lat and long
