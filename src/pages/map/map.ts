@@ -524,7 +524,7 @@ export class MapPage {
     modal.onDidDismiss(data => {
       // this.address.place = data;
       console.log(data);
-      if (typeof (data) !== 'undefined') {
+      if (typeof (data) !== 'undefined' && data) {
         this.map.setCenter(data.latLng);
         this.map.setZoom(17)
         this.addMarker(this.map, data.latLng);
@@ -553,7 +553,7 @@ export class MapPage {
     let me = this;
     modal.onDidDismiss((data: any) => {
       console.log(data);
-      if (typeof (data) !== 'undefined') {
+      if (typeof (data) !== 'undefined' && data) {
         this.gmapService.drawDirection(this.map, data.From.latLng, data.To.latLng).then((res) => {
           console.log(res);
         })
