@@ -4,18 +4,27 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-  <!-- <ion-toolbar>
+<!-- <ion-header>
+  <ion-toolbar>
     <ion-searchbar [showCancelButton]="true" (Click)="updateSearch()" (ionCancel)="dismiss()" placeholder="Nhập địa chỉ"></ion-searchbar>
-  </ion-toolbar> -->
-  <button ion-button block icon-start (click)="updateSearch()">
-    <ion-icon name="search"></ion-icon>
-    Search
-  </button>
-</ion-header>
+  </ion-toolbar> 
+</ion-header> -->
 
 
 <ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-10>
+          <button ion-button block icon-start (click)="updateSearch()">
+              <ion-icon name="search"></ion-icon>
+              Search
+            </button>
+      </ion-col>
+      <ion-col col-2>
+          <button ion-fab color="danger" mini (click)="searchDirections()"><ion-icon name="return-right"></ion-icon></button>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
   <div id="map" #map></div>
 
   <ion-fab left bottom>

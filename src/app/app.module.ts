@@ -41,6 +41,7 @@ import 'firebase/auth';
 import 'firebase/messaging'
 import { firebaseConfig } from '../config/firebase-config';
 import { AutoCompleteModalPage } from '../pages/auto-complete-modal/auto-complete-modal';
+import { AutoCompleteTwoModalPage } from '../pages/auto-complete-two-modal/auto-complete-two-modal';
 firebase.initializeApp(firebaseConfig);
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ firebase.initializeApp(firebaseConfig);
     KmlOverlayPage,
     StreetViewPage,
     MapTestPage,
-    AutoCompleteModalPage
+    AutoCompleteModalPage,
+    AutoCompleteTwoModalPage
   ],
   imports: [
     BrowserModule,
@@ -89,7 +91,8 @@ firebase.initializeApp(firebaseConfig);
     KmlOverlayPage,
     StreetViewPage,
     MapTestPage,
-    AutoCompleteModalPage
+    AutoCompleteModalPage,
+    AutoCompleteTwoModalPage
     
   ],
   providers: [

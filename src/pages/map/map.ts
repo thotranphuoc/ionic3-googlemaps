@@ -22,6 +22,7 @@ import {
   MyLocation
 } from '@ionic-native/google-maps';
 import { AutoCompleteModalPage } from '../auto-complete-modal/auto-complete-modal';
+import { AutoCompleteTwoModalPage } from '../auto-complete-two-modal/auto-complete-two-modal';
 
 declare var google: any;
 
@@ -526,7 +527,8 @@ export class MapPage {
       this.map.setCenter(data.latLng);
       this.map.setZoom(17)
       this.addMarker(this.map, data.latLng);
-      // this.loadLocation2Map(this.LOCATIONS);
+      console.log(this.LOCATIONS);
+      this.loadLocation2Map(this.LOCATIONS);
     });
     modal.present();
   }
@@ -542,6 +544,23 @@ export class MapPage {
     });
   }
 
+//Search directions between two location
+  searchDirections(){
+    console.log('updateSearch');
+    let modal = this.modalCtrl.create(AutoCompleteTwoModalPage);
+    let me = this;
+    modal.onDidDismiss(data => {
+      // this.address.place = data;
+      console.log(data);
+      this.map.setCenter(data.latLng);
+      this.map.setZoom(17)
+      this.addMarker(this.map, data.latLng);
+      console.log(this.LOCATIONS);
+      this.loadLocation2Map(this.LOCATIONS);
+    });
+
+    modal.present();
+  }
 
 }
 
