@@ -93,8 +93,8 @@ export class LoginPage {
           if (this.isBack) {
             this.navCtrl.pop()
           } else {
-            // this.navCtrl.setRoot('MapPage');
-            this.navCtrl.setRoot('MapNewPage');
+            this.navCtrl.setRoot('MapPage');
+            // this.navCtrl.setRoot('MapNewPage'); // for native map
           }
         } else {
           // alert('Sai Tên đăng nhập hoặc mật khẩu, xin vui lòng thử lại.');

@@ -12,7 +12,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { AppService } from '../../services/app.service';
 // import { GoogleMap } from '@agm/core/services/google-maps-types';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
-import {Keyboard} from '@ionic-native/keyboard';
+import { Keyboard } from '@ionic-native/keyboard';
 import {
   GoogleMaps,
   GoogleMap,
@@ -53,14 +53,14 @@ export class MapPage {
   LOCATIONTYPESSET = [];
 
   CITIES = [
-    { type: 'radio', label: 'Hồ Chí Minh', value: '1', lat:10.780482, lng: 106.70223 , checked: false },
-    { type: 'radio', label: 'Hà Nội', value: '2', lat:21.022736, lng: 105.8019441 , checked: false },
-    { type: 'radio', label: 'Hải Phòng', value: '3', lat:20.8467333, lng: 106.6637271 , checked: false },
-    { type: 'radio', label: 'Huế', value: '4', lat:16.4533875, lng: 107.5420936 , checked: false },
-    { type: 'radio', label: 'Đà Nẵng', value: '5', lat:16.0471659, lng: 108.1716865 , checked: false },
-    { type: 'radio', label: 'Cần Thơ', value: '6', lat:10.0341851, lng: 105.7225508 , checked: false },
-    { type: 'radio', label: 'Bình Định', value: '7', lat:14.1026697, lng: 108.4191822 , checked: false },
-    { type: 'radio', label: 'Tây Ninh', value: '8', lat:11.3658548, lng: 106.059613 , checked: false },
+    { type: 'radio', label: 'Hồ Chí Minh', value: '1', lat: 10.780482, lng: 106.70223, checked: false },
+    { type: 'radio', label: 'Hà Nội', value: '2', lat: 21.022736, lng: 105.8019441, checked: false },
+    { type: 'radio', label: 'Hải Phòng', value: '3', lat: 20.8467333, lng: 106.6637271, checked: false },
+    { type: 'radio', label: 'Huế', value: '4', lat: 16.4533875, lng: 107.5420936, checked: false },
+    { type: 'radio', label: 'Đà Nẵng', value: '5', lat: 16.0471659, lng: 108.1716865, checked: false },
+    { type: 'radio', label: 'Cần Thơ', value: '6', lat: 10.0341851, lng: 105.7225508, checked: false },
+    { type: 'radio', label: 'Bình Định', value: '7', lat: 14.1026697, lng: 108.4191822, checked: false },
+    { type: 'radio', label: 'Tây Ninh', value: '8', lat: 11.3658548, lng: 106.059613, checked: false },
   ]
 
   gMap: GoogleMap;
@@ -80,7 +80,7 @@ export class MapPage {
     private appService: AppService,
     public viewCtrl: ViewController,
     //private keyboard: Keyboard,
-  
+
   ) {
     platform.ready().then(() => {
       // this.getGeolocation();
@@ -120,7 +120,7 @@ export class MapPage {
   //             this.latitude = place.geometry.location.lat();
   //             this.longitude = place.geometry.location.lng();
   //             //this.zoom = 12;
-              
+
   //         });
   //     });
   // });*/
@@ -166,7 +166,7 @@ export class MapPage {
         })
     }
 
-    
+
 
   }
 
@@ -239,7 +239,7 @@ export class MapPage {
           console.log('Location get');
           console.log(res);
           this.LOCATIONS = res;
-          this.LOCATIONS_=res;
+          this.LOCATIONS_ = res;
           this.localService.LOCATIONS = this.LOCATIONS;
           if (this.LOCATIONTYPESSET.length > 0) {
             this.FILTER_LOCATIONS = this.LOCATIONS.filter(LOC => this.LOCATIONTYPESSET.map(L => L.TypeLocation).indexOf(LOC.LocationTypeID) >= 0);
@@ -413,19 +413,19 @@ export class MapPage {
     actionSheet.present();
   }
 
-  locationHandle(){
-    if(this.localService.USER && this.localService.USER.lat !=='0' && this.localService.USER.lng !=='0'){
+  locationHandle() {
+    if (this.localService.USER && this.localService.USER.lat !== '0' && this.localService.USER.lng !== '0') {
       this.USER_LOCATION = { lat: Number(this.localService.USER.lat), lng: Number(this.localService.USER.lng) };
       this.startInitMap();
       this.localService.USER_CURRENT_LOCATION = this.USER_LOCATION;
-    }else{
+    } else {
       this.showRadio();
     }
   }
   showRadio() {
     let alert = this.alertCtrl.create();
     alert.setTitle('Chọn tỉnh thành:');
-    this.CITIES.forEach(CITY=>{
+    this.CITIES.forEach(CITY => {
       alert.addInput({ type: CITY.type, label: CITY.label, value: CITY.value, checked: CITY.checked })
     })
     // alert.addInput({ type: 'radio', label: 'Hồ Chí Minh', value: '1', checked: true });
@@ -449,31 +449,31 @@ export class MapPage {
   }
 
   updateLocation(ID) {
-    let index = this.CITIES.map(CITY=> CITY.value).indexOf(ID)
-    this.USER_LOCATION = {lat: this.CITIES[index].lat, lng: this.CITIES[index].lng};
+    let index = this.CITIES.map(CITY => CITY.value).indexOf(ID)
+    this.USER_LOCATION = { lat: this.CITIES[index].lat, lng: this.CITIES[index].lng };
     this.localService.USER_CURRENT_LOCATION = this.USER_LOCATION;
     this.startInitMap();
-    if(this.localService.USER){
+    if (this.localService.USER) {
       this.dbService.locationUserSet(this.localService.USER.Email, this.USER_LOCATION.lat, this.USER_LOCATION.lng)
-      .then((res)=>{
-        console.log(res);
-      })
-      .catch(err=>{
-        console.log(err);
-      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        })
     }
   }
 
-  search(e){
+  search(e) {
     console.log(e);
     let str = e.toLowerCase();
     console.log(str);
     console.log(this.FILTER_LOCATIONS);
-    if(str.length>0){
-      this.FILTER_LOCATIONS = this.LOCATIONS.filter(LOC => LOC.Address.toLowerCase().indexOf(str)>-1)
-    }else{
+    if (str.length > 0) {
+      this.FILTER_LOCATIONS = this.LOCATIONS.filter(LOC => LOC.Address.toLowerCase().indexOf(str) > -1)
+    } else {
       console.log('str = 0');
-      this.FILTER_LOCATIONS = this.LOCATIONS_; 
+      this.FILTER_LOCATIONS = this.LOCATIONS_;
     }
 
     console.log(this.FILTER_LOCATIONS.length);
@@ -484,7 +484,7 @@ export class MapPage {
 
 
   ngOnInit() {
-    
+
   }
   dismiss() {
     this.viewCtrl.dismiss();
@@ -517,7 +517,7 @@ export class MapPage {
   //   });
   // }
 
-  updateSearch(){
+  updateSearch() {
     console.log('updateSearch');
     let modal = this.modalCtrl.create(AutoCompleteModalPage);
     let me = this;
@@ -533,8 +533,8 @@ export class MapPage {
     modal.present();
   }
 
-  addMarker(map: any, POSITION: iPosition){
-    if(typeof(this.marker) !=='undefined'){
+  addMarker(map: any, POSITION: iPosition) {
+    if (typeof (this.marker) !== 'undefined') {
       this.marker.setMap(null);
     }
     this.marker = new google.maps.Marker({
@@ -544,19 +544,23 @@ export class MapPage {
     });
   }
 
-//Search directions between two location
-  searchDirections(){
+  //Search directions between two location
+  searchDirections() {
     console.log('updateSearch');
     let modal = this.modalCtrl.create(AutoCompleteTwoModalPage);
     let me = this;
-    modal.onDidDismiss(data => {
-      // this.address.place = data;
+    modal.onDidDismiss((data: any) => {
       console.log(data);
-      this.map.setCenter(data.latLng);
-      this.map.setZoom(17)
-      this.addMarker(this.map, data.latLng);
-      console.log(this.LOCATIONS);
-      this.loadLocation2Map(this.LOCATIONS);
+      if (typeof (data) !== 'undefined') {
+        this.gmapService.drawDirection(this.map, data.From.latLng, data.To.latLng).then((res) => {
+          console.log(res);
+        })
+          .catch(err => {
+            console.log(err);
+          })
+        this.map.setCenter(data.From.latLng);
+        this.map.setZoom(17)
+      }
     });
 
     modal.present();

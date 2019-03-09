@@ -1,35 +1,26 @@
 <ion-header>
-    <ion-toolbar color="login-green">
-      <ion-title>Chỉ đường</ion-title>
-      <ion-buttons start>
-        <button tappable ion-button (click)="dismiss()">
-          <ion-icon color="white" name="md-close" showWhen="android"></ion-icon>
-          <ion-icon color="white" name="arrow-down" showWhen="ios"></ion-icon>
-        </button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content padding>
-    <ion-header>
-      <ion-toolbar>
-        <ion-searchbar [(ngModel)]="autocomplete.query" [showCancelButton]="true" (ionInput)="updateSearchFrom()" (ionCancel)="dismiss()" placeholder="Chọn điểm bắt đầu"></ion-searchbar>
-        <ion-searchbar [(ngModel)]="autocompleteto.queryto" [showCancelButton]="true" (ionInput)="updateSearchTo()" (ionCancel)="dismiss()" placeholder="Chọn điểm đến"></ion-searchbar>
-      </ion-toolbar>
-    </ion-header>
-    
-    <ion-content>
-      <ion-list *ngIf="HideFrom==0">
-        <ion-item *ngFor="let item of autocompleteItems" tappable   (click)="chooseItem(item)">
-          {{ item }}
-        </ion-item>
-      </ion-list>
-
-      <ion-list *ngIf="HideTo==0">
-          <ion-item *ngFor="let item of autocompleteItemsto" tappable   (click)="chooseItemto(item)">
-            {{ item }}
-          </ion-item>
-        </ion-list>
-    </ion-content>
-  </ion-content>
-  
+  <ion-toolbar color="login-green">
+    <ion-buttons start>
+      <button tappable ion-button (click)="dismiss()">
+        <ion-icon color="white" name="md-close" showWhen="android"></ion-icon>
+        <ion-icon color="white" name="arrow-down" showWhen="ios"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-searchbar [(ngModel)]="autocomplete2.queryFrom" [showCancelButton]="true" (ionInput)="updateSearch2From()"
+      (ionCancel)="dismiss()" placeholder="Chọn điểm bắt đầu"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="autocomplete2.queryTo" [showCancelButton]="true" (ionInput)="updateSearch2To()"
+      (ionCancel)="dismiss()" placeholder="Chọn điểm đến"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list *ngIf="!isFromSelected">
+    <ion-item *ngFor="let item of autocompleteItems2.From" tappable (click)="chooseItem2(item, 'From')">
+      {{ item }}
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="!isToSelected">
+    <ion-item *ngFor="let item of autocompleteItems2.To" tappable (click)="chooseItem2(item, 'To')">
+      {{ item }}
+    </ion-item>
+  </ion-list>
+</ion-content>
