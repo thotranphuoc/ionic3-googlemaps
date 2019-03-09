@@ -524,11 +524,13 @@ export class MapPage {
     modal.onDidDismiss(data => {
       // this.address.place = data;
       console.log(data);
-      this.map.setCenter(data.latLng);
-      this.map.setZoom(17)
-      this.addMarker(this.map, data.latLng);
-      console.log(this.LOCATIONS);
-      this.loadLocation2Map(this.LOCATIONS);
+      if (typeof (data) !== 'undefined') {
+        this.map.setCenter(data.latLng);
+        this.map.setZoom(17)
+        this.addMarker(this.map, data.latLng);
+        console.log(this.LOCATIONS);
+        this.loadLocation2Map(this.LOCATIONS);
+      }
     });
     modal.present();
   }
