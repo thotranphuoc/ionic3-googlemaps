@@ -90,7 +90,7 @@ export class MapPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad MapPage');
     // this.startInitMap();
-    this.getLocations();
+    // this.getLocations();
     this.getLocationTypeSettings();
     this.locationHandle();
 
@@ -201,14 +201,14 @@ export class MapPage {
       })
   }
 
-  getLocations(){
-    this.geolocation.getCurrentPosition().then(res=>{
-      console.log(res);
-      this.appService.showAlert('latLng','lat:' + res.coords.latitude.toString() + 'lng: ' +res.coords.longitude.toString())
-    }).catch(err=>{
-      this.appService.showAlert('latLng', err.message);
-    })
-  }
+  // getLocations(){
+  //   this.geolocation.getCurrentPosition().then(res=>{
+  //     console.log(res);
+  //     this.appService.showAlert('latLng','lat:' + res.coords.latitude.toString() + 'lng: ' +res.coords.longitude.toString())
+  //   }).catch(err=>{
+  //     this.appService.showAlert('latLng', err.message);
+  //   })
+  // }
 
   // getCurrentLocation(){
   //   this.gMap = GoogleMaps.create('map', {
@@ -255,6 +255,7 @@ export class MapPage {
     })
   }
 
+  // DE LAM GI
   getLocationTypeSettings() {
     this.LOCATIONTYPESSET = [];
     let email = null;
