@@ -1,5 +1,5 @@
 {
-  "name": "ionic-native-google-maps",
+  "name": "dmap",
   "integrations": {
     "cordova": {}
   },

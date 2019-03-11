@@ -11,7 +11,7 @@
   <div class="main" text-center >
     <div class="inputs" *ngIf="USER">
       <div class="avatar" (click)="takePhoto()">
-          <img src="{{USER.Image}}" alt="" onError="this.src='../../assets/imgs/imagenotavailable.png';">
+          <img src="{{USER.Image}}" alt="" onError="this.src='./assets/imgs/imagenotavailable.png';">
       </div>
 
       <div class="cls_update_information">

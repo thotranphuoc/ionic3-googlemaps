@@ -11,7 +11,7 @@
   <div class="main" text-center >
     <div class="inputs">
       <div class="avatar" (click)="takePhoto()">
-          <img src="{{base64Image}}" alt="" onError="this.src='../../assets/imgs/imagenotavailable.png';">
+          <img src="{{base64Image}}" alt="" onError="this.src='./assets/imgs/imagenotavailable.png';">
       </div>
       <input type="file" (change)="takePictureAndResizeByBrowser($event)" hidden accept="image/*" id="inputFile">
     <div class="btn">

@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="ionic.googlemaps.quickdemo" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>GoogleMaps quick demo</name>
-    <description>A demo app of @ionic-native/google-maps plugin.</description>
+<widget id="org.drd.Dmap" version="2.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Dmap</name>
+    <description>App dành cho người khuyết tật.</description>
+    <author email="admin@drdvietnam.com" href="http://drdvietnam.org/">DRD Viet Nam Team</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
