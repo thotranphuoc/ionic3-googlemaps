@@ -19,7 +19,8 @@ import {
   GoogleMapsEvent,
   Marker,
   GoogleMapsAnimation,
-  MyLocation
+  MyLocation,
+  GoogleMapOptions
 } from '@ionic-native/google-maps';
 import { AutoCompleteModalPage } from '../auto-complete-modal/auto-complete-modal';
 import { AutoCompleteTwoModalPage } from '../auto-complete-two-modal/auto-complete-two-modal';
@@ -63,7 +64,7 @@ export class MapPage {
     { type: 'radio', label: 'Tây Ninh', value: '8', lat: 11.3658548, lng: 106.059613, checked: false },
   ]
 
-  gMap: GoogleMap;
+  googleMap: GoogleMap;
   marker: any;
   constructor(
     private platform: Platform,
@@ -82,8 +83,12 @@ export class MapPage {
     //private keyboard: Keyboard,
 
   ) {
-    platform.ready().then(() => {
+    this.platform.ready().then(() => {
       // this.getGeolocation();
+      this.getCurrentLocation();
+    })
+    .catch(err=>{
+      console.log(err);
     })
 
   }
@@ -95,7 +100,45 @@ export class MapPage {
     this.getLocationTypeSettings();
     this.locationHandle();
 
-    // this.getCurrentLocation();
+    
+  }
+
+  getCurrentLocation(){
+    console.log('googleMap',this.googleMap)
+    // this.googleMap.getMyLocation()
+    // .then((location: MyLocation)=>{
+    //   let MSG = location.latLng.lat.toString() + location.latLng.lng.toString();
+    //   this.appService.showAlert('Success', MSG)
+    // })
+    // .catch(err=>{
+    //   this.appService.showAlert('error', err.json())
+    //   console.log(err);
+    // })
+    this.initializeMapGeo();
+  }
+
+  initializeMapGeo(){
+    let mapOptions: GoogleMapOptions = {
+      camera: {
+        target: {
+          lat: 43.0741904,
+          lng: -89.3809802
+        },
+        zoom: 18,
+        tilt: 30
+      }
+    };
+
+    this.googleMap = GoogleMaps.create('map_geo', mapOptions);
+    this.googleMap.getMyLocation().then((location: MyLocation)=>{
+      // this.appService.showAlert('Success', location.latLng.lat.toString()+ '-' + location.latLng.lng.toString() );
+      console.log(location.latLng.lat.toString()+ '-' + location.latLng.lng.toString() );
+      this.startInitMap();
+    })
+    .catch((err: any)=>{
+      this.appService.showAlert('Error',err.message);
+      console.log(err.message)
+    })
   }
 
   // searchAddress()

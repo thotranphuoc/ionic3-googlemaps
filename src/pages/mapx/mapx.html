@@ -1,0 +1,31 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-10>
+        <button ion-button block icon-start (click)="updateSearch()">
+          <ion-icon name="search"></ion-icon>
+          Search
+        </button>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-fab color="danger" mini (click)="searchDirections()">
+          <ion-icon name="return-right"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div id="mapx"></div>
+  <div id="mapx_main"></div>
+
+  <ion-fab left bottom>
+    <button ion-fab color="danger" mini (click)="go2AddLoc()">
+      <ion-icon name="md-add"></ion-icon>
+    </button>
+  </ion-fab>
+  <ion-fab right bottom>
+    <button ion-fab color="danger" mini (click)="showInfo()">
+      <ion-icon name="md-person"></ion-icon>
+    </button>
+  </ion-fab>
+  <div class="disable-map"></div>
+</ion-content>

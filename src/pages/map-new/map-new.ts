@@ -9,7 +9,6 @@ import {
   MyLocation,
   LatLng
 } from '@ionic-native/google-maps';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @IonicPage()
 @Component({
@@ -17,7 +16,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   templateUrl: 'map-new.html',
 })
 export class MapNewPage {
-  map: GoogleMap;
+  googleMap: GoogleMap;
   marker: Marker;
   location: MyLocation;
   latLng: LatLng;
@@ -26,13 +25,13 @@ export class MapNewPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MapNewPage');
-    this.map = this.loadMap();
-    this.getLocation().then((location) => {
+    this.googleMap = this.loadMap();
+    this.getMyLocation().then((location) => {
       this.location = location;
-      return this.moveMap2Location(this.map, location)
+      return this.moveMap2Location(this.googleMap, location)
     }).then((res)=>{
       console.log(res);
-      this.markerAdd(this.map, this.location.latLng);
+      this.markerAdd(this.googleMap, this.location.latLng);
       this.showMarker();
     })
   }
@@ -49,12 +48,12 @@ export class MapNewPage {
     return GoogleMaps.create('map_new_canvas', OPTION);
   }
 
-  getLocation() {
-    return this.map.getMyLocation()
+  getMyLocation() {
+    return this.googleMap.getMyLocation()
   }
 
   moveMap2Location(map: GoogleMap, location: MyLocation) {
-    return this.map.animateCamera({
+    return this.googleMap.animateCamera({
       target: location.latLng,
       zoom: 17,
     })
@@ -75,6 +74,4 @@ export class MapNewPage {
       console.log(e);
     })
   }
-
-
 }
