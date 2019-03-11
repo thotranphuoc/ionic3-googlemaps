@@ -45,7 +45,7 @@ export class ForgotPwPage {
           // alert('Thành công. Xin vui lòng kiểm tra lại email');
           this.appService.showAlert('Thành công.',' Xin vui lòng kiểm tra lại email')
           this.navCtrl.push('PasswordChangePage');
-          //this.navCtrl.setRoot('MapPage');
+          //this.navCtrl.setRoot('MapxPage');
           //this.loadingService.hideLoading();
         }
         else

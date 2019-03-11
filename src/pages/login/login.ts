@@ -110,7 +110,7 @@ export class LoginPage {
   }
 
   donotLogin() {
-    this.navCtrl.push('MapPage');
+    this.navCtrl.push('MapxPage');
   }
   go2Register() {
     this.navCtrl.push('RegisterPage');

@@ -42,7 +42,7 @@ export class PasswordChangePage {
           if(res.result == '1'){
             // alert('Thay đổi mật khẩu thành công');
             this.appService.showAlert('','Thay đổi mật khẩu thành công');
-            this.navCtrl.setRoot('MapPage');
+            this.navCtrl.setRoot('MapxPage');
           }else{
             // alert('Lỗi, Xin vui lòng thử lại.');
             this.appService.showAlert('','Lỗi, Xin vui lòng thử lại.');

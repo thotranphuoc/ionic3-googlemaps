@@ -105,7 +105,7 @@ export class LocationSettingPage {
     .then((res)=>{
       console.log(res);
       this.appService.presentToast('Thành công',5000);
-      this.navCtrl.setRoot('MapPage');
+      this.navCtrl.setRoot('MapxPage');
     })
     .catch((err)=>{
       console.log(err);

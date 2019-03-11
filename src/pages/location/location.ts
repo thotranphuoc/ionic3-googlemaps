@@ -29,7 +29,7 @@ export class LocationPage {
       console.log(this.data);
       
       if(typeof(this.data.LOCATION) =='undefined'){
-        this.navCtrl.setRoot('MapPage');
+        this.navCtrl.setRoot('MapxPage');
       }else{
         this.ID = this.data.LOCATION.LocationID;
       }

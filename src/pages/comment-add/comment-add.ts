@@ -39,7 +39,7 @@ export class CommentAddPage {
     if(typeof(this.ID)!=='undefined'){
       this.getComments();
     }else{
-      this.navCtrl.setRoot('MapPage');
+      this.navCtrl.setRoot('MapxPage');
     }
   }
 
