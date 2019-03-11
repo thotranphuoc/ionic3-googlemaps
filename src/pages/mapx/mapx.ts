@@ -31,12 +31,13 @@ export class MapxPage {
   marker: any;
   location: MyLocation;
   latLng: LatLng;
-  MAP_ZOOM = 13;
+  MAP_ZOOM = 15;
   MAKERS_LOADED: boolean = false;
   LOCATIONS = [];
   LOCATIONS_ = [];
   FILTER_LOCATIONS = [];
   LOCATIONTYPESSET = [];
+  USER_CURRENT_LOCATION: iPosition;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -54,7 +55,9 @@ export class MapxPage {
     console.log('ionViewDidLoad MapNewPage');
     this.getCurrentLocation().then((location: MyLocation) => {
       this.latLng = location.latLng;
-      this.startInitMap({ lat: this.latLng.lat, lng: this.latLng.lng });
+      this.USER_CURRENT_LOCATION = { lat: this.latLng.lat, lng: this.latLng.lng };
+      this.localService.USER_CURRENT_LOCATION = this.USER_CURRENT_LOCATION; 
+      this.startInitMap(this.USER_CURRENT_LOCATION);
     })
       .catch(err => {
         console.log(err);
@@ -151,6 +154,7 @@ export class MapxPage {
         google.maps.event.addListener(this.map, 'idle', () => {
           console.log('map was loaded fully');
           this.loadingService.hideLoading();
+          this.addMarker(this.map, this.localService.USER_CURRENT_LOCATION);
           if (this.LOCATIONS.length > 0) {
             this.loadLocation2Map(this.FILTER_LOCATIONS);
           } else {
@@ -222,6 +226,8 @@ export class MapxPage {
     });
     modal.present();
   }
+
+
   addMarker(map: any, POSITION: iPosition) {
     if (typeof (this.marker) !== 'undefined') {
       this.marker.setMap(null);
@@ -257,7 +263,7 @@ export class MapxPage {
 
   go2AddLoc() {
     if (this.localService.USER) {
-      this.navCtrl.push('LocationAddPage');
+      this.navCtrl.push('LocationAddPage',{ USER_CURRENT_LOCATION: this.USER_CURRENT_LOCATION});
     } else {
       this.showConfirm();
     }

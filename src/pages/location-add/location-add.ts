@@ -5,13 +5,7 @@ import { LocalService } from '../../services/local.service';
 import { DbService } from '../../services/db.service';
 import { iUser } from '../../interfaces/user.interface';
 import { AppService } from '../../services/app.service';
-
-/**
- * Generated class for the LocationAddPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { iPosition } from '../../interfaces/position.interface';
 
 @IonicPage()
 @Component({
@@ -35,6 +29,8 @@ export class LocationAddPage {
     LocationType_Ref: 0,
     Star: '0'
   }
+  data: any;
+  USER_CURRENT_LOCATION: iPosition;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -52,6 +48,10 @@ export class LocationAddPage {
     console.log('ionViewDidLoad LocationAddPage');
     this.getQuestionTypes();
     this.getLocationTypes();
+    this.data = this.navParams.data;
+    this.USER_CURRENT_LOCATION = this.data.USER_CURRENT_LOCATION;
+    this.LOCATION.Latitude = this.USER_CURRENT_LOCATION.lat.toString();
+    this.LOCATION.Longitude = this.USER_CURRENT_LOCATION.lng.toString();
   }
 
   getQuestionTypes() {
@@ -157,21 +157,21 @@ export class LocationAddPage {
   // }
 
   updateLocation() {
-    let sub: any
-    let CURRENT_LOCATION = this.localService.USER_CURRENT_LOCATION;
-    this.navCtrl.push('LocationSetNewPage', { CURRENT_LOCATION: CURRENT_LOCATION });
-     this.event.subscribe('on-location-set', (data: any) => {
-      console.log(data);
-      if (data) {
-        this.LOCATION.Latitude = data.NEW_LOCATION.lat;
-        this.LOCATION.Longitude = data.NEW_LOCATION.lng;
-      }
-      this.event.unsubscribe('on-location-set');
-      if(typeof(sub) !=='undefined'){
-        sub.unsubscribe();
-      }
+    // let sub: any
+    // let CURRENT_LOCATION = this.localService.USER_CURRENT_LOCATION;
+    // this.navCtrl.push('LocationSetNewPage', { CURRENT_LOCATION: CURRENT_LOCATION });
+    //  this.event.subscribe('on-location-set', (data: any) => {
+    //   console.log(data);
+    //   if (data) {
+    //     this.LOCATION.Latitude = data.NEW_LOCATION.lat;
+    //     this.LOCATION.Longitude = data.NEW_LOCATION.lng;
+    //   }
+    //   this.event.unsubscribe('on-location-set');
+    //   if(typeof(sub) !=='undefined'){
+    //     sub.unsubscribe();
+    //   }
       
-    })
+    // })
   }
 
   selectLocation(loc) {
