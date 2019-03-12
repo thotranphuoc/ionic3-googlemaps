@@ -89,14 +89,15 @@ export class LoginPage {
             console.log('Password:', val);
           });
 
-          //console.log("User name: " + this.storage.get("Username") + " - pass: " + this.storage.get("Password"));
-          if (this.isBack) {
-            this.navCtrl.pop()
-          } else {
-            // this.navCtrl.setRoot('MapPage');
-            // this.navCtrl.setRoot('MapNewPage'); // for native map
-            this.navCtrl.setRoot('MapxPage');
-          }
+          // //console.log("User name: " + this.storage.get("Username") + " - pass: " + this.storage.get("Password"));
+          // if (this.isBack) {
+          //   this.navCtrl.pop()
+          // } else {
+          //   // this.navCtrl.setRoot('MapPage');
+          //   // this.navCtrl.setRoot('MapNewPage'); // for native map
+          //   this.navCtrl.setRoot('MapxPage');
+          // }
+          this.navCtrl.setRoot('MapxPage');
         } else {
           // alert('Sai Tên đăng nhập hoặc mật khẩu, xin vui lòng thử lại.');
           this.appService.showAlert('', 'Sai Tên đăng nhập hoặc mật khẩu, xin vui lòng thử lại.')
@@ -110,7 +111,7 @@ export class LoginPage {
   }
 
   donotLogin() {
-    this.navCtrl.push('MapxPage');
+    this.navCtrl.setRoot('MapxPage');
   }
   go2Register() {
     this.navCtrl.push('RegisterPage');

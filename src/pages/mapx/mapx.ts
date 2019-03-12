@@ -49,6 +49,7 @@ export class MapxPage {
     private dbService: DbService,
     private localService: LocalService
   ) {
+    console.log('constructor');
   }
 
   ionViewDidLoad() {
@@ -56,7 +57,7 @@ export class MapxPage {
     this.getCurrentLocation().then((location: MyLocation) => {
       this.latLng = location.latLng;
       this.USER_CURRENT_LOCATION = { lat: this.latLng.lat, lng: this.latLng.lng };
-      this.localService.USER_CURRENT_LOCATION = this.USER_CURRENT_LOCATION; 
+      this.localService.USER_CURRENT_LOCATION = this.USER_CURRENT_LOCATION;
       this.startInitMap(this.USER_CURRENT_LOCATION);
     })
       .catch(err => {
@@ -263,7 +264,7 @@ export class MapxPage {
 
   go2AddLoc() {
     if (this.localService.USER) {
-      this.navCtrl.push('LocationAddPage',{ USER_CURRENT_LOCATION: this.USER_CURRENT_LOCATION});
+      this.navCtrl.push('LocationAddPage', { USER_CURRENT_LOCATION: this.USER_CURRENT_LOCATION });
     } else {
       this.showConfirm();
     }

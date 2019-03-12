@@ -50,8 +50,12 @@ export class LocationAddPage {
     this.getLocationTypes();
     this.data = this.navParams.data;
     this.USER_CURRENT_LOCATION = this.data.USER_CURRENT_LOCATION;
-    this.LOCATION.Latitude = this.USER_CURRENT_LOCATION.lat.toString();
-    this.LOCATION.Longitude = this.USER_CURRENT_LOCATION.lng.toString();
+    if (typeof (this.USER_CURRENT_LOCATION) !== 'undefined') {
+      this.LOCATION.Latitude = this.USER_CURRENT_LOCATION.lat.toString();
+      this.LOCATION.Longitude = this.USER_CURRENT_LOCATION.lng.toString();
+    } else {
+      this.LOCATION
+    }
   }
 
   getQuestionTypes() {
@@ -156,7 +160,8 @@ export class LocationAddPage {
   //   mapModal.present();
   // }
 
-  updateLocation() {
+  // native map for location set
+  // updateLocation() {
     // let sub: any
     // let CURRENT_LOCATION = this.localService.USER_CURRENT_LOCATION;
     // this.navCtrl.push('LocationSetNewPage', { CURRENT_LOCATION: CURRENT_LOCATION });
@@ -170,8 +175,24 @@ export class LocationAddPage {
     //   if(typeof(sub) !=='undefined'){
     //     sub.unsubscribe();
     //   }
-      
+
     // })
+  // }
+
+  updateLocation() {
+    let CURRENT_LOCATION = this.localService.USER_CURRENT_LOCATION;
+    let mapModal = this.modalCtrl.create('LocationSetPage', { CURRENT_LOCATION: CURRENT_LOCATION });
+    mapModal.onDidDismiss((data: any) => {
+      console.log(data);
+      // if (data) {
+      //   this.SHOP.SHOP_LOCATION = data.NEW_LOCATION;
+      // }
+      if (data.NEW_LOCATION) {
+        this.LOCATION.Latitude = data.NEW_LOCATION.lat;
+        this.LOCATION.Longitude = data.NEW_LOCATION.lng;
+      }
+    })
+    mapModal.present();
   }
 
   selectLocation(loc) {

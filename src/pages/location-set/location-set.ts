@@ -74,7 +74,7 @@ export class LocationSetPage {
     let latLng = new google.maps.LatLng(position.lat, position.lng);
     let mapOptions = {
       center: latLng,
-      zoom: 15,
+      zoom: 18,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControl: false,
       zoomControl: false,
