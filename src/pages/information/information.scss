@@ -1,5 +1,13 @@
 page-information {
-
+    .head_logo {
+        height: 25px !important;
+        text-align: center;
+    }
+    .content{
+        clear: both;
+        padding: 10px 20px 20px 20px !important;
+        text-align: justify;
+    }
 }
 .main{
     padding-top:10px;
@@ -8,11 +16,7 @@ page-information {
     background-size: 100% 100%;
     text-align: center;
 }
-.content{
-    clear: both;
-    padding: 10px 20px 20px 20px !important;
-    text-align: justify;
-}
+
 .scroll-content
 {
     background:#eeeeee;
