@@ -17,7 +17,7 @@ import { DbService } from '../../services/db.service';
 import { LocalService } from '../../services/local.service';
 import { AutoCompleteModalPage } from '../auto-complete-modal/auto-complete-modal';
 import { AutoCompleteTwoModalPage } from '../auto-complete-two-modal/auto-complete-two-modal';
-
+import { Storage } from '@ionic/storage';
 declare var google: any;
 @IonicPage()
 @Component({
@@ -47,7 +47,8 @@ export class MapxPage {
     private gmapService: GmapService,
     private loadingService: LoadingService,
     private dbService: DbService,
-    private localService: LocalService
+    private localService: LocalService,
+    private storage: Storage
   ) {
     console.log('constructor');
   }
@@ -357,6 +358,8 @@ export class MapxPage {
           handler: () => {
             console.log('Cancel clicked');
             this.localService.USER = null;
+            this.storage.set("Username", '');
+            this.storage.set("Password", '');
             this.navCtrl.push('LoginPage');
           }
         }

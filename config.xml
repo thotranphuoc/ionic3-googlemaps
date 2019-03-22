@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="org.drd.Dmap" version="2.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="org.drdvietnam.dmap" version="2.1.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Dmap</name>
     <description>App dành cho người khuyết tật.</description>
     <author email="admin@drdvietnam.com" href="http://drdvietnam.org/">DRD Viet Nam Team</author>

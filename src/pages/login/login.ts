@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { DbService } from '../../services/db.service';
 import { LocalService } from '../../services/local.service';
 import { AppService } from '../../services/app.service';
+import { timeout } from 'rxjs/operator/timeout';
 
 /**
  * Generated class for the LoginPage page.
@@ -52,6 +53,13 @@ export class LoginPage {
       console.log('Password:', val);
       this.password = val;
     });
+    if(!(this.user_name == ""))
+      setTimeout( () => {
+        console.log('chay toi settime');
+        
+        this.login(this.user_name, this.password);
+      }, 500);
+    
     // try {
     //   this.storage.get('Username').then((val) => {
     //     console.log('User name:', val);

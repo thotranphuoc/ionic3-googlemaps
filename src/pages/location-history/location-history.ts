@@ -62,7 +62,11 @@ export class LocationHistoryPage {
       this.LOCATIONS_TEMP = res;
     })
   }
-
+  editLocations(LOCATION:iLOC){
+    console.log(LOCATION)
+    //this.doSend2Admin(LOCATION.TempID);
+    this.navCtrl.push('RequestEditPage', {LOCATION: LOCATION});
+  }
   setLocations(LOCATION:iLOC){
     console.log(LOCATION)
     this.doSend2Admin(LOCATION.TempID);

@@ -40,8 +40,10 @@
             <ion-input type="text" placeholder="LocationType_Ref" [(ngModel)]="LOC.LocationType_Ref"></ion-input>
           </ion-item> -->
         <button (click)="updateLocation()" class="btn_loc">Chọn toạ độ công trình</button>
-        <input type="text" placeholder="Latitude" [(ngModel)]="LOCATION.Latitude" />
-        <input type="text" placeholder="Longitude" [(ngModel)]="LOCATION.Longitude" />
+        <br/>
+        <label><i>Chú ý: Chỉ sử dụng khi vị trí thay đổi </i></label>
+        <input type="text" placeholder="Latitude" [(ngModel)]="LOCATION.Latitude" hidden="true"/>
+        <input type="text" placeholder="Longitude" [(ngModel)]="LOCATION.Longitude" hidden="true"/>
       </div>
     </ion-list>
     <ion-grid style="width: 70%; margin: 0 auto;">

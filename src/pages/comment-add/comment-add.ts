@@ -55,7 +55,7 @@ export class CommentAddPage {
 
   doAddComment(comment){
     console.log(comment);
-    let d = new Date();
+    let d = new Date().toISOString();
     this.dbService.commentAdd(this.localService.USER.FullName, this.ID, d.toString(), comment)
     .then((res: any)=>{
       console.log(res);
