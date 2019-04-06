@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { AutoCompleteModalPage } from './auto-complete-modal';
+// import { AutoCompleteModalPage } from './auto-complete-modal';
 
 @NgModule({
   declarations: [
-    AutoCompleteModalPage,
+    // AutoCompleteModalPage,
   ],
   imports: [
-    IonicPageModule.forChild(AutoCompleteModalPage),
+    // IonicPageModule.forChild(AutoCompleteModalPage),
   ],
 })
-export class AutoCompleteModalPageModule {}
+export class AutoCompleteModalPageModule { }

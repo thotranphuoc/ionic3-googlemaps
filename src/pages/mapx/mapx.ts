@@ -55,15 +55,31 @@ export class MapxPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MapNewPage');
-    this.getCurrentLocation().then((location: MyLocation) => {
-      this.latLng = location.latLng;
-      this.USER_CURRENT_LOCATION = { lat: this.latLng.lat, lng: this.latLng.lng };
+    if (!window.cordova) {
+      console.log('cordova is not available');
+      let lat = 10.7891915;
+      let lng = 106.7405075;
+      this.USER_CURRENT_LOCATION = { lat: lat, lng: lng };
       this.localService.USER_CURRENT_LOCATION = this.USER_CURRENT_LOCATION;
       this.startInitMap(this.USER_CURRENT_LOCATION);
-    })
-      .catch(err => {
-        console.log(err);
+    } else {
+      this.getCurrentLocation().then((location: MyLocation) => {
+        this.latLng = location.latLng;
+        this.USER_CURRENT_LOCATION = { lat: this.latLng.lat, lng: this.latLng.lng };
+        this.localService.USER_CURRENT_LOCATION = this.USER_CURRENT_LOCATION;
+        this.startInitMap(this.USER_CURRENT_LOCATION);
       })
+        .catch(err => {
+          console.log(err);
+          // this.latLng = location.latLng;
+          let lat = 10.7891915;
+          let lng = 106.7405075;
+          this.USER_CURRENT_LOCATION = { lat: lat, lng: lng };
+          this.localService.USER_CURRENT_LOCATION = this.USER_CURRENT_LOCATION;
+          this.startInitMap(this.USER_CURRENT_LOCATION);
+        })
+    }
+
   }
 
   getCurrentLocation() {
