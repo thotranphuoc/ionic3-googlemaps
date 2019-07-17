@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Địa điểm cập nhật</ion-title>
+    <ion-title>{{LANGUAGES.TITLE[LANG]}} </ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -17,10 +17,10 @@
   <div padding>
     <ion-segment [(ngModel)]="pet">
       <ion-segment-button value="history" class="history">
-        Địa điểm cập nhật
+        {{LANGUAGES.btnLocationUpdate[LANG]}} 
       </ion-segment-button>
       <ion-segment-button value="temp" class="temp">
-        Địa điểm đã lưu
+        {{LANGUAGES.btnLocationSave[LANG]}}
       </ion-segment-button>
     </ion-segment>
   </div>
@@ -29,9 +29,9 @@
     <ion-list *ngSwitchCase="'history'">
         <ion-grid>
             <ion-row>
-              <ion-col col-3><strong>Tên</strong></ion-col>
-              <ion-col col-6><strong>Địa chỉ</strong></ion-col>
-              <ion-col col-3><strong>Điện thoại</strong></ion-col>
+              <ion-col col-3><strong>{{LANGUAGES.placeholderLocationName[LANG]}}</strong></ion-col>
+              <ion-col col-6><strong>{{LANGUAGES.placeholderAddress[LANG]}}</strong></ion-col>
+              <ion-col col-3><strong>{{LANGUAGES.placeholderPhoneLocation[LANG]}}</strong></ion-col>
             </ion-row>
           </ion-grid>
       <div *ngFor="let LOCATION of LOCATIONS_HIS">
@@ -49,9 +49,9 @@
     <ion-list *ngSwitchCase="'temp'">
         <ion-grid>
             <ion-row>
-              <ion-col col-2><strong>Tên</strong></ion-col>
-              <ion-col col-5><strong>Địa chỉ</strong></ion-col>
-              <ion-col col-3><strong>Điện thoại</strong></ion-col>
+              <ion-col col-2><strong>{{LANGUAGES.placeholderLocationName[LANG]}}</strong></ion-col>
+              <ion-col col-5><strong>{{LANGUAGES.placeholderAddress[LANG]}}</strong></ion-col>
+              <ion-col col-3><strong>{{LANGUAGES.placeholderPhoneLocation[LANG]}}</strong></ion-col>
               <ion-col col-2><strong></strong></ion-col>
             </ion-row>
           </ion-grid>
@@ -62,15 +62,15 @@
                   <ion-col col-2>{{LOCATION.Title}}</ion-col>
                   <ion-col col-5>{{LOCATION.Address}}</ion-col>
                   <ion-col col-3>{{LOCATION.Phone}}</ion-col>
-                  <ion-col col-2><button class="btnSentDetails" (click)="editLocations(LOCATION)">Chỉnh sửa</button></ion-col>
-                  <ion-col col-2><button class="btnSentDetails" (click)="setLocations(LOCATION)">Gửi admin</button></ion-col>
+                  <ion-col col-2><button class="btnSentDetails" (click)="editLocations(LOCATION)">{{LANGUAGES.btnEdit[LANG]}}</button></ion-col>
+                  <ion-col col-2><button class="btnSentDetails" (click)="setLocations(LOCATION)">{{LANGUAGES.btnSentAdmin[LANG]}}</button></ion-col>
                 </ion-row>
               </ion-grid>
       </div>
       <ion-grid>
           <ion-row>
             <ion-col col-3></ion-col>
-            <ion-col col-6><button class="btnSent" (click)="setAllLocations()">Gửi Tất Cả</button></ion-col>
+            <ion-col col-6><button class="btnSent" (click)="setAllLocations()">{{LANGUAGES.btnSentAll[LANG]}}</button></ion-col>
             <ion-col col-3></ion-col>
           </ion-row>
         </ion-grid>

@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>Cập nhật địa điểm</ion-title>
+    <ion-title>{{LANGUAGES.TITLE[LANG]}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -14,20 +14,27 @@
   <div class="main">
     <ion-list>
       <div class="inputs">
-        <input type="text" placeholder="Tên công trình" [(ngModel)]="LOCATION.Title"/>
-        <input type="text" placeholder="Địa chỉ" [(ngModel)]="LOCATION.Address" />
-        <input type="text" placeholder="Số điện thoại" [(ngModel)]="LOCATION.Phone" />
-        <ion-input type="text" placeholder="Số điện thoại của bạn" [(ngModel)]="LOCATION.User_Phone" readonly="true"></ion-input>
+        <input type="text" placeholder="{{LANGUAGES.placeholderLocationName[LANG]}}" [(ngModel)]="LOCATION.Title"/>
+        <input type="text" placeholder="{{LANGUAGES.placeholderAddress[LANG]}}" [(ngModel)]="LOCATION.Address" />
+        <input type="text" placeholder="{{LANGUAGES.placeholderPhoneLocation[LANG]}}" [(ngModel)]="LOCATION.Phone" />
+        <ion-input type="text" placeholder="{{LANGUAGES.placeholderPhoneUser[LANG]}}" [(ngModel)]="LOCATION.User_Phone"></ion-input>
         <ion-item>
-          <ion-label>Loại địa điểm:</ion-label>
-          <ion-select #item (ionChange)="selectLocation(item.value)">
+          <ion-label>{{LANGUAGES.placeholderLocationType[LANG]}}:</ion-label>
+          <ion-select #item (ionChange)="selectLocation(item.value)" *ngIf="LANG=='VI'">
             <ion-option *ngFor="let loc of LOCATIONTYPES" [value]="loc">{{loc.Name}}</ion-option>
+          </ion-select>
+
+          <ion-select #item (ionChange)="selectLocation(item.value)" *ngIf="LANG=='EN'">
+            <ion-option *ngFor="let loc of LOCATIONTYPES" [value]="loc">{{loc.Name_en}}</ion-option>
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label>Loại câu hỏi khảo sát:</ion-label>
-          <ion-select #questiontype (ionChange)="selectQuestionType(questiontype.value)">
+          <ion-label>{{LANGUAGES.placeholderQuestionType[LANG]}}</ion-label>
+          <ion-select #questiontype (ionChange)="selectQuestionType(questiontype.value)" *ngIf="LANG=='VI'">
             <ion-option *ngFor="let QUES of QUESTIONTYPES" [value]="QUES">{{QUES.description}}</ion-option>
+          </ion-select>
+          <ion-select #questiontype (ionChange)="selectQuestionType(questiontype.value)" *ngIf="LANG=='EN'">
+            <ion-option *ngFor="let QUES of QUESTIONTYPES" [value]="QUES">{{QUES.description_en}}</ion-option>
           </ion-select>
         </ion-item>
         <!-- <ion-item>
@@ -39,14 +46,19 @@
         <!-- <ion-item>
             <ion-input type="text" placeholder="LocationType_Ref" [(ngModel)]="LOC.LocationType_Ref"></ion-input>
           </ion-item> -->
-        <button (click)="updateLocation()" class="btn_loc">Chọn toạ độ công trình</button>
+        <button (click)="updateLocation()" class="btn_loc">{{LANGUAGES.btnChooseLocation[LANG]}}</button>
         <br/>
-        <label><i>Chú ý: Chỉ sử dụng khi vị trí thay đổi </i></label>
+        <label><i>{{LANGUAGES.txtNote[LANG]}} </i></label>
+        <textarea type="text" placeholder="{{LANGUAGES.placeholderNote[LANG]}}" [(ngModel)]="LOCATION.Note"> </textarea>
+        <ion-item>
+          <ion-label>{{LANGUAGES.txtHide[LANG]}}</ion-label>
+          <ion-checkbox [(ngModel)]="LOCATION.Hide"></ion-checkbox>
+        </ion-item>
         <input type="text" placeholder="Latitude" [(ngModel)]="LOCATION.Latitude" hidden="true"/>
         <input type="text" placeholder="Longitude" [(ngModel)]="LOCATION.Longitude" hidden="true"/>
       </div>
     </ion-list>
-    <ion-grid style="width: 70%; margin: 0 auto;">
+    <ion-grid style="width: 70%; margin: 0 auto; display: none;">
       <ion-row *ngIf="LOCATION.Star =='0'">
         <ion-col><img src="./assets/imgs/star_gray.png" alt="" (click)="LOCATION.Star ='1'"></ion-col>
         <ion-col><img src="./assets/imgs/star_gray.png" alt="" (click)="LOCATION.Star ='2'"></ion-col>

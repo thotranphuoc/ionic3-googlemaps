@@ -5,6 +5,8 @@ import { IonicPage, NavController, NavParams, ViewController, App } from 'ionic-
 // import { ShopService } from '../../services/shop.service';
 // import { ProxyService } from '../../services/proxy.service';
 import { iLocation } from '../../interfaces/location.interface';
+import { LangService } from '../../services/lang.service';
+import { LocalService } from '../../services/local.service';
 
 @IonicPage()
 @Component({
@@ -12,6 +14,14 @@ import { iLocation } from '../../interfaces/location.interface';
   templateUrl: 'pop-over.html',
 })
 export class PopOverPage {
+  // FOR LANGUAGES UPDATE
+  // 1. Set initialize EN
+  LANG = 'VI';
+  // 2. set initialized LANGUAGES
+  LANGUAGES = {
+    btnDetail : { EN: 'Detail', VI : 'Xem chi tiết'},
+  };
+  pageId = 'LocationPage';
   data: any;
   LOCATION: iLocation = null;
   constructor(
@@ -19,6 +29,8 @@ export class PopOverPage {
     public navParams: NavParams,
     private app: App,
     private viewCtrl: ViewController,
+    private localService: LocalService,
+    private langService: LangService,
     // private shopService: ShopService,
     // private proxyService: ProxyService
   ) {
@@ -26,9 +38,34 @@ export class PopOverPage {
     this.LOCATION = this.data.LOCATION;
     console.log(this.LOCATION);
   }
+  convertArray2Object() {
+    let OBJ: any = {}
+    try {
+      if(this.localService.BASIC_INFOS.LANGUAGES[this.pageId]!=null)
+      {
+        let LANGUAGES: any[] = this.localService.BASIC_INFOS.LANGUAGES[this.pageId];
+        LANGUAGES.forEach(L => {
+          OBJ[L.KEY] = L
+        })
+        console.log(OBJ);
+      }
+    } catch (error) {
+      OBJ=null;
+    }
+    return OBJ;
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PopOverPage');
+    setTimeout(() => {
+      // 3. Get selected EN/VI
+      this.LANG = this.langService.LANG;
+      console.log(this.LANG);
+      // 4. Get LANGUAGES from DB
+      if(this.convertArray2Object() != null)
+        this.LANGUAGES = this.convertArray2Object();
+      console.log(this.LANGUAGES);
+    }, 1000);
   }
 
   closePopover() {

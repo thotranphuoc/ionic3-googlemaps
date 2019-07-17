@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Events, ViewController } from 'ionic-angular';
 import { iLocation } from '../../interfaces/location.interface';
 import { LocalService } from '../../services/local.service';
 import { DbService } from '../../services/db.service';
 import { iUser } from '../../interfaces/user.interface';
 import { AppService } from '../../services/app.service';
 import { iPosition } from '../../interfaces/position.interface';
+import { LangService } from '../../services/lang.service';
 
 @IonicPage()
 @Component({
@@ -13,6 +14,27 @@ import { iPosition } from '../../interfaces/position.interface';
   templateUrl: 'location-add.html',
 })
 export class LocationAddPage {
+// FOR LANGUAGES UPDATE
+  // 1. Set initialize EN
+  LANG = 'VI';
+  // 2. set initialized LANGUAGES
+  LANGUAGES = {
+    TITLE : { EN: 'Add new location', VI : 'Thêm địa điểm'},
+    btnSave : { EN: 'Save', VI : 'Lưu'},
+    btnSentAdmin : { EN: 'Send', VI : 'Gửi Admin'},
+    placeholderLocationName : { EN: 'Location name', VI : 'Tên công trình'},
+    placeholderAddress : { EN: 'Address', VI : 'Địa chỉ'},
+    placeholderPhoneLocation : { EN: 'Contact number', VI : 'Số điện thoại địa điểm'},
+    placeholderPhoneUser : { EN: 'Number Phone User', VI : 'Số điện thoại User'},
+    placeholderLocationType : { EN: 'Types of location and place', VI : 'Loại địa điểm'},
+    placeholderQuestionType : { EN: 'Start to audit here', VI : 'Loại câu hỏi khảo sát'},
+    btnChooseLocation : { EN: 'Identify your coordinates', VI : 'Chọn toạ độ công trình'},
+    txtNote : { EN: 'Note: Only use when your location is changed', VI : 'Chú ý: Chỉ sử dụng khi vị trí thay đổi.'},
+    txtHide : { EN: 'Incognito mode', VI : 'Gửi ẩn danh'},
+    placeholderNote : { EN: 'Note', VI : 'Ghi chú'},
+  };
+  pageId = 'LocationAddPage';
+
   // LOCATION: iLocation;
   QUESTIONTYPES: any[] = [];
   QUESTIONS: any[] = [];
@@ -27,25 +49,57 @@ export class LocationAddPage {
     Phone: '',
     User_Phone: this.localService.USER.Phone,
     LocationType_Ref: 0,
-    Star: '0'
+    Star: '0',
+    Note:'',
+    Hide:'0',
   }
   data: any;
   USER_CURRENT_LOCATION: iPosition;
   constructor(
+    public viewCtrl: ViewController,
     public navCtrl: NavController,
     public navParams: NavParams,
     private modalCtrl: ModalController,
     private localService: LocalService,
     private dbService: DbService,
     private appService: AppService,
-    private event: Events
+    private event: Events,
+    private langService: LangService
 
   ) {
     // this.LOCATION = this.localService.LOCATION_DEFAULT
   }
-
+  convertArray2Object() {
+    let OBJ: any = {}
+    try {
+      if(this.localService.BASIC_INFOS.LANGUAGES[this.pageId]!=null)
+      {
+        let LANGUAGES: any[] = this.localService.BASIC_INFOS.LANGUAGES[this.pageId];
+        LANGUAGES.forEach(L => {
+          OBJ[L.KEY] = L
+        })
+        console.log(OBJ);
+      }
+    } catch (error) {
+      OBJ=null;
+    }
+    
+    
+    return OBJ;
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad LocationAddPage');
+    setTimeout(() => {
+      // 3. Get selected EN/VI
+      this.LANG = this.langService.LANG;
+      console.log(this.LANG);
+      // 4. Get LANGUAGES from DB
+      if(this.convertArray2Object() != null)
+        this.LANGUAGES = this.convertArray2Object();
+      console.log(this.LANGUAGES);
+    }, 1000);
+
+
     this.getQuestionTypes();
     this.getLocationTypes();
     this.data = this.navParams.data;
@@ -125,7 +179,7 @@ export class LocationAddPage {
     console.log('Star: ' + this.LOCATION.Star);
     console.log(this.TYPES, this.localService.STRING);
     if (this.localService.USER) {
-      this.dbService.locationNewAdd(this.LOCATION.Latitude, this.LOCATION.Longitude, this.LOCATION.Title, this.LOCATION.Address, this.LOCATION.Phone, this.LOCATION.User_Phone, this.LOCATION.LocationType_Ref, this.TYPES, this.LOCATION.Star, this.localService.STRING, active)
+      this.dbService.locationNewAdd(this.LOCATION.Latitude, this.LOCATION.Longitude, this.LOCATION.Title, this.LOCATION.Address, this.LOCATION.Phone, this.LOCATION.User_Phone, this.LOCATION.LocationType_Ref, this.TYPES, this.LOCATION.Star, this.localService.STRING, active, this.LOCATION.Note, this.LOCATION.Hide)
         .then((res) => {
           console.log(res);
           return this.updateScoreAndLevel()
@@ -133,7 +187,8 @@ export class LocationAddPage {
         .then((res) => {
           console.log(res);
           this.appService.presentToast('Thành công', 5000)
-          this.navCtrl.setRoot('MapPage');
+          //this.navCtrl.setRoot('MapxPage');
+          this.viewCtrl.dismiss();
         })
         .catch(err => {
           console.log(err);
@@ -221,10 +276,10 @@ export class LocationAddPage {
     if (this.LOCATION.Address.trim().length < 1) return false;
     if (this.LOCATION.Latitude.toString().trim().length < 1) return false;
     if (this.LOCATION.Longitude.toString().trim().length < 1) return false;
-    if (this.LOCATION.Phone.trim().length < 1) return false;
+    //if (this.LOCATION.Phone.trim().length < 1) return false;
     if (this.LOCATION.Star.trim().length < 1) return false;
     if (this.LOCATION.Title.trim().length < 1) return false;
-    if (this.LOCATION.User_Phone.trim().length < 1) return false;
+    //if (this.LOCATION.User_Phone.trim().length < 1) return false;
     if (this.TYPES.trim().length < 1) return false;
     return true;
   }
@@ -240,5 +295,7 @@ export interface iLOC {
   Phone: string,
   User_Phone: string,
   LocationType_Ref: number, // Location ID
-  Star: string
+  Star: string,
+  Hide: string,
+  Note: string
 }

@@ -7,9 +7,9 @@
       </button>
     </ion-buttons>
     <ion-searchbar [(ngModel)]="autocomplete2.queryFrom" [showCancelButton]="true" (ionInput)="updateSearch2From()"
-      (ionCancel)="dismiss()" placeholder="Chọn điểm bắt đầu"></ion-searchbar>
+      (ionCancel)="dismiss()" placeholder="{{LANGUAGES.placeholderYourLocation[LANG]}}"></ion-searchbar>
     <ion-searchbar [(ngModel)]="autocomplete2.queryTo" [showCancelButton]="true" (ionInput)="updateSearch2To()"
-      (ionCancel)="dismiss()" placeholder="Chọn điểm đến"></ion-searchbar>
+      (ionCancel)="dismiss()" placeholder="{{LANGUAGES.placeholderChooseDestination[LANG]}}"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 <ion-content>

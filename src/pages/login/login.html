@@ -24,17 +24,26 @@
   <div class="logo"><img src="./assets/imgs/icon_120.png"/></div>
     
     <div class="inputs">
-      <input #email required type="text" placeholder="Email" value="{{user_name}}">
-      <input #pw required type="password" placeholder="Mật khẩu" value="{{password}}">
+      <input #email required type="text" placeholder="{{LANGUAGES.placeholderUsername[LANG]}}" value="{{user_name}}">
+      <input #pw required type="password" placeholder="{{LANGUAGES.placeholderPassword[LANG]}}" value="{{password}}">
     </div>
     <div class="btn">
-      <button (click)="login(email.value, pw.value)">Đăng Nhập</button>
-      <button (click)="donotLogin()">Sử dụng không cần đăng nhập</button>
+      <button (click)="login(email.value, pw.value)">{{LANGUAGES.btnLogin[LANG]}}</button>
+      <button (click)="donotLogin()">{{LANGUAGES.btnNotAccount[LANG]}}</button>
     </div>
 
     <div class="dang_ky">
-      <a (click)="go2Register()">Đăng Ký</a>
-      <a (click)="go2ForgotPass()">Quên mật khẩu</a>
+      <a (click)="go2Register()">{{LANGUAGES.btnRegister[LANG]}}</a>
+      <a (click)="go2ForgotPass()">{{LANGUAGES.btnForgotPassword[LANG]}}</a>
+    </div>
+
+    <div class="choose_lang" *ngIf="LANG=='EN'">
+      <a (click)="go2ChangeLang()">{{LANGUAGES.btnLang[LANG]}}</a>
+      <img (click)="go2ChangeLang()" src="./assets/imgs/flag.png" style="height: 30px;"/>
+    </div>
+    <div class="choose_lang" *ngIf="LANG=='VI'">
+      <a (click)="go2ChangeLang()">{{LANGUAGES.btnLang[LANG]}}</a>
+      <img (click)="go2ChangeLang()" src="./assets/imgs/flagen.png" style="height: 30px;"/>
     </div>
   
   </div>

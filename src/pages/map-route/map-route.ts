@@ -6,6 +6,7 @@ import { iPosition } from '../../interfaces/position.interface';
 import { LoadingService } from '../../services/loading.service';
 import { iLOC } from '../location-add/location-add';
 import { LocalService } from '../../services/local.service';
+import { LangService } from '../../services/lang.service';
 
 declare var google: any;
 
@@ -15,6 +16,14 @@ declare var google: any;
   templateUrl: 'map-route.html',
 })
 export class MapRoutePage {
+  // FOR LANGUAGES UPDATE
+  // 1. Set initialize EN
+  LANG = 'VI';
+  // 2. set initialized LANGUAGES
+  LANGUAGES = {
+    TITLE : { EN: 'Direct', VI : 'Chỉ đường'},
+  };
+  pageId = 'MapRoutePage';
   LOCATION: iLocation;
   LOCATIONS: iLocation[] = [];
   map: any;
@@ -30,14 +39,42 @@ export class MapRoutePage {
     public navParams: NavParams,
     private gmapService: GmapService,
     private loadingService: LoadingService,
-    private localService: LocalService
+    private localService: LocalService,
+    private langService: LangService,
   ) {
     this.LOCATION = this.navParams.get('LOCATION');
     this.LOCATIONS = this.localService.LOCATIONS
     this.DestinationPos = { lat: Number(this.LOCATION.Latitude), lng: Number(this.LOCATION.Longitude) };
   }
 
+  convertArray2Object() {
+    let OBJ: any = {}
+    try {
+      if(this.localService.BASIC_INFOS.LANGUAGES[this.pageId]!=null)
+      {
+        let LANGUAGES: any[] = this.localService.BASIC_INFOS.LANGUAGES[this.pageId];
+        LANGUAGES.forEach(L => {
+          OBJ[L.KEY] = L
+        })
+        console.log(OBJ);
+      }
+    } catch (error) {
+      OBJ=null;
+    }
+    return OBJ;
+  }
+
+
   ionViewDidLoad() {
+    setTimeout(() => {
+      // 3. Get selected EN/VI
+      this.LANG = this.langService.LANG;
+      console.log(this.LANG);
+      // 4. Get LANGUAGES from DB
+      if(this.convertArray2Object() != null)
+        this.LANGUAGES = this.convertArray2Object();
+      console.log(this.LANGUAGES);
+    }, 1000);
     setTimeout(() => {
       this.mapEl = document.getElementById('map2');
       this.initMap(this.mapEl)

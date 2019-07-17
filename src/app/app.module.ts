@@ -29,12 +29,16 @@ import { LoadingService } from '../services/loading.service';
 import { GmapService } from '../services/gmap.service';
 import { LocalService } from '../services/local.service';
 import { DbService } from '../services/db.service';
+import { DbServiceMain } from '../services/db.service.main';
 import { AppService } from '../services/app.service';
 import { ImageService } from '../services/image.service';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation';
 import { AgmCoreModule } from '@agm/core';
+//Translate
+import { TranslateModule } from '@ngx-translate/core';
+
 // firebase
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
@@ -42,6 +46,11 @@ import 'firebase/messaging'
 import { firebaseConfig } from '../config/firebase-config';
 import { AutoCompleteModalPage } from '../pages/auto-complete-modal/auto-complete-modal';
 import { AutoCompleteTwoModalPage } from '../pages/auto-complete-two-modal/auto-complete-two-modal';
+import { LoginPageModule } from '../pages/login/login.module';
+import { LangServicePage } from '../pages/lang-service/lang-service';
+import { LangService } from '../services/lang.service';
+import { CirclePage } from '../pages/circle/circle';
+import { MarkerClusterPage } from '../pages/marker-cluster/marker-cluster';
 firebase.initializeApp(firebaseConfig);
 @NgModule({
   declarations: [
@@ -50,7 +59,7 @@ firebase.initializeApp(firebaseConfig);
     // BaseArrayClassPage,
     // PolygonPage,
     // HtmlInfoWindowPage,
-    // MarkerClusterPage,
+     //MarkerClusterPage,
     // GeocodingPage,
     // PolylinePage,
     // MarkerPage,
@@ -66,7 +75,9 @@ firebase.initializeApp(firebaseConfig);
   imports: [
     BrowserModule,
     FormsModule,
+    //LoginPageModule,
     IonicModule.forRoot(MyApp),
+    TranslateModule.forRoot(),
     IonicStorageModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAf1-QYPFKYvSP4zsgd1rAPgGv_vsEWCzE',
@@ -81,11 +92,11 @@ firebase.initializeApp(firebaseConfig);
     // BaseArrayClassPage,
     // PolygonPage,
     // HtmlInfoWindowPage,
-    // MarkerClusterPage,
+     //MarkerClusterPage,
     // GeocodingPage,
     // PolylinePage,
     // MarkerPage,
-    // CirclePage,
+     //CirclePage,
     // GroundOverlayPage,
     // TileOverlayPage,
     // KmlOverlayPage,
@@ -102,9 +113,11 @@ firebase.initializeApp(firebaseConfig);
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     // from Dmap
     LoadingService,
+    LangService,
     GmapService,
     LocalService,
     DbService,
+    DbServiceMain,
     AppService,
     ImageService,
     Geolocation,

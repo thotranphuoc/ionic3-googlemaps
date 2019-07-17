@@ -9,5 +9,6 @@ import { CirclePage } from './circle';
   imports: [
     IonicPageModule.forChild(CirclePage),
   ],
+  
 })
 export class CirclePageModule {}

@@ -107,6 +107,7 @@ export class GmapService {
                 // The anchor for this image is the base of the flagpole at (0, 32).
                 // anchor: new google.maps.Point(0, 26),
                 scaledSize: new google.maps.Size(45, 53),
+                //scaledSize: new google.maps.Point(0, 26),
             };
             let marker = new google.maps.Marker({
                 position: pos,

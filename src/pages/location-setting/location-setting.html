@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Loại công trình</ion-title>
+    <ion-title>{{LANGUAGES.TITLE[LANG]}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -60,13 +60,14 @@
       <ion-thumbnail>
         <img src="{{LOCATION.Url_Image}}">
       </ion-thumbnail>
-      <h2>{{LOCATION.Name}}</h2>
+      <h2 *ngIf="LANG=='EN'">{{LOCATION.Name_en}}</h2>
+      <h2 *ngIf="LANG=='VI'">{{LOCATION.Name}}</h2>
       <!-- <p>Hayao Miyazaki • 1988</p> -->
-      <button ion-button clear item-end *ngIf="LOCATION.isSet">Hiển thị</button>
-      <button color="danger" ion-button clear item-end *ngIf="!LOCATION.isSet">Ẩn</button>
+      <button ion-button clear item-end *ngIf="LOCATION.isSet">{{LANGUAGES.btnShow[LANG]}}</button>
+      <button color="danger" ion-button clear item-end *ngIf="!LOCATION.isSet">{{LANGUAGES.btnHide[LANG]}}</button>
     </ion-item>
   </ion-list>
 
   
-  <button (click)="saveConf()" class="btnSave">Lưu</button>
+  <button (click)="saveConf()" class="btnSave">{{LANGUAGES.btnSave[LANG]}}</button>
 </ion-content>

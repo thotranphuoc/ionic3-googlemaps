@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ActionSheetController, AlertContro
 import { LoadingService } from '../../services/loading.service';
 import { iPosition } from '../../interfaces/position.interface';
 import { GmapService } from '../../services/gmap.service';
-import { DbService } from '../../services/db.service';
+import { DbServiceMain } from '../../services/db.service.main';
 import { iLocation } from '../../interfaces/location.interface';
 import { LocalService } from '../../services/local.service';
 
@@ -24,6 +24,7 @@ import {
 } from '@ionic-native/google-maps';
 import { AutoCompleteModalPage } from '../auto-complete-modal/auto-complete-modal';
 import { AutoCompleteTwoModalPage } from '../auto-complete-two-modal/auto-complete-two-modal';
+import { LangService } from '../../services/lang.service';
 
 declare var google: any;
 
@@ -33,8 +34,25 @@ declare var google: any;
   templateUrl: 'map.html',
 })
 export class MapPage {
-  @ViewChild('searchbar') searchBar;
+  // FOR LANGUAGES UPDATE
+  // 1. Set initialize EN
+  LANG = 'VI';
+  // 2. set initialized LANGUAGES
+  LANGUAGES = {
+    placeholderSearch : { EN: 'Search here', VI : 'Tìm địa điểm'},
+    lblHello : { EN: 'Hello', VI : 'Xin chào'},
+    btnInformation : { EN: 'Personal information', VI : 'Thông tin cá nhân'},
+    btnGift : { EN: 'Go with D.Map Contest', VI : 'Giải thưởng và thể lệ cuộc thi'},
+    btnYourLocation : { EN: 'List of your updated places', VI : 'Danh sách địa điểm cập nhật'},
+    btnTypeLocation : { EN: 'Show types of location and place', VI : 'Hiển thị theo loại công trình'},
+    btnIntroduction : { EN: 'About D.Map', VI : 'Giới thiệu'},
+    btnHelp : { EN: 'Help', VI : 'Giúp đỡ'},
+    btnLang : { EN: 'Tiếng Việt', VI : 'English'},
+    btnLogout : { EN: 'Log out', VI : 'Đăng xuất'},
+  };
+  pageId = 'MapPage';
 
+  @ViewChild('searchbar') searchBar;
   autocompleteItems: any;
   autocomplete: any = {
     query: ''
@@ -57,11 +75,15 @@ export class MapPage {
     { type: 'radio', label: 'Hồ Chí Minh', value: '1', lat: 10.780482, lng: 106.70223, checked: false },
     { type: 'radio', label: 'Hà Nội', value: '2', lat: 21.022736, lng: 105.8019441, checked: false },
     { type: 'radio', label: 'Hải Phòng', value: '3', lat: 20.8467333, lng: 106.6637271, checked: false },
+    { type: 'radio', label: 'Đà Lạt', value: '9', lat: 11.933444, lng: 108.457862, checked: false },
     { type: 'radio', label: 'Huế', value: '4', lat: 16.4533875, lng: 107.5420936, checked: false },
     { type: 'radio', label: 'Đà Nẵng', value: '5', lat: 16.0471659, lng: 108.1716865, checked: false },
     { type: 'radio', label: 'Cần Thơ', value: '6', lat: 10.0341851, lng: 105.7225508, checked: false },
     { type: 'radio', label: 'Bình Định', value: '7', lat: 14.1026697, lng: 108.4191822, checked: false },
     { type: 'radio', label: 'Tây Ninh', value: '8', lat: 11.3658548, lng: 106.059613, checked: false },
+    { type: 'radio', label: 'Bảo Lộc', value: '10', lat: 11.573068, lng: 107.833079, checked: false },
+    { type: 'radio', label: 'Đức Trọng', value: '12', lat: 11.754742, lng: 108.406100, checked: false },
+    { type: 'radio', label: 'Vũng Tàu', value: '11', lat: 10.410626, lng: 107.132917, checked: false },
   ]
 
   googleMap: GoogleMap;
@@ -76,13 +98,15 @@ export class MapPage {
     private modalCtrl: ModalController,
     private loadingService: LoadingService,
     private gmapService: GmapService,
-    private dbService: DbService,
+    private dbService: DbServiceMain,
     private localService: LocalService,
     private appService: AppService,
     public viewCtrl: ViewController,
+    private langService: LangService,
     //private keyboard: Keyboard,
 
   ) {
+    this.ionViewDidLoad();
     this.platform.ready().then(() => {
       // this.getGeolocation();
       this.getCurrentLocation();
@@ -90,13 +114,39 @@ export class MapPage {
     .catch(err=>{
       console.log(err);
     })
+  }
 
+  convertArray2Object() {
+    let OBJ: any = {}
+    try {
+      if(this.localService.BASIC_INFOS.LANGUAGES[this.pageId]!=null)
+      {
+        let LANGUAGES: any[] = this.localService.BASIC_INFOS.LANGUAGES[this.pageId];
+        LANGUAGES.forEach(L => {
+          OBJ[L.KEY] = L
+        })
+        console.log(OBJ);
+      }
+    } catch (error) {
+      OBJ=null;
+    }
+    return OBJ;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MapPage');
     // this.startInitMap();
     // this.getLocations();
+    setTimeout(() => {
+      // 3. Get selected EN/VI
+      this.LANG = this.langService.LANG;
+      console.log(this.LANG);
+      // 4. Get LANGUAGES from DB
+      if(this.convertArray2Object() != null)
+        this.LANGUAGES = this.convertArray2Object();
+      console.log(this.LANGUAGES);
+    }, 1000);
+
     this.getLocationTypeSettings();
     this.locationHandle();
 
@@ -394,31 +444,31 @@ export class MapPage {
 
   presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Xin chào: ' + this.localService.USER.FullName,
+      title: this.LANGUAGES.lblHello[this.LANG] +': ' + this.localService.USER.FullName,
       buttons: [
         {
-          text: 'Thông tin cá nhân',
+          text: this.LANGUAGES.btnInformation[this.LANG],
           handler: () => {
             console.log('Thông tin cá nhân');
             this.navCtrl.push('ProfileUpdatePage');
           }
         },
         {
-          text: 'Quà tặng và giải thưởng',
+          text: this.LANGUAGES.btnGift[this.LANG],
           handler: () => {
             console.log('Quà tặng và giải thưởng');
             this.navCtrl.push('GiftPage');
           }
         },
         {
-          text: 'Danh sách địa điểm cập nhật',
+          text: this.LANGUAGES.btnYourLocation[this.LANG],
           handler: () => {
             console.log('Danh sách địa điểm cập nhật');
             this.navCtrl.push('LocationHistoryPage');
           }
         },
         {
-          text: 'Hiển thị theo loại công trình',
+          text: this.LANGUAGES.btnTypeLocation[this.LANG],
           // role: 'destructive',
           handler: () => {
             console.log('Hiển thị theo loại công trình');
@@ -427,7 +477,7 @@ export class MapPage {
         },
 
         {
-          text: 'Giới thiệu',
+          text: this.LANGUAGES.btnIntroduction[this.LANG],
           handler: () => {
             console.log('Giới thiệu');
             this.navCtrl.push('InformationPage');
@@ -435,14 +485,30 @@ export class MapPage {
         },
 
         {
-          text: 'Giúp đỡ',
+          text: this.LANGUAGES.btnHelp[this.LANG],
           handler: () => {
             console.log('Giúp đỡ');
             this.navCtrl.push('DmapHelpPage');
           }
         },
         {
-          text: 'Đăng xuất',
+          text: this.LANGUAGES.btnLang[this.LANG],
+          handler: () => {
+            console.log('Giúp đỡ');
+            //this.navCtrl.push('DmapHelpPage');
+            if(this.LANG=='EN')
+            {
+              this.langService.LANG='VI';
+              this.LANG='VI';
+            }
+            else{
+              this.langService.LANG='EN';
+              this.LANG='EN';
+            }
+          }
+        },
+        {
+          text: this.LANGUAGES.btnLogout[this.LANG],
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');

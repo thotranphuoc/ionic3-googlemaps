@@ -13,8 +13,10 @@ import { NavController } from 'ionic-angular/navigation/nav-controller';
 export class LocalService {
     loading: any;
     count: number = 0;
+    LANGUAGES = [];
     LOCATIONTYPES = [];
     isLoading: boolean = false;
+    BASIC_INFOS = null;
     constructor(
         private loadingCtrl: LoadingController,
         // private navCtrl: NavController
@@ -41,7 +43,9 @@ export class LocalService {
         Phone: '',
         Score: '',
         lat: '0',
-        lng: '0'
+        lng: '0',
+        Team:'',
+        Introduction:'',
     }
     STRING = '';
     USER_CURRENT_LOCATION: iPosition = null;
@@ -62,6 +66,8 @@ export class LocalService {
         Title: '',
         Url_Image: '',
         User_Phone: '',
+        Note: '',
+        Hide: 'false',
 
     };
     LOCATION_DEFAULT: iLocation = {
@@ -80,7 +86,8 @@ export class LocalService {
         Title: '',
         Url_Image: '',
         User_Phone: '',
-
+        Note: '',
+        Hide: 'false',
     }
 
     LOCATIONS: iLocation[] = [];

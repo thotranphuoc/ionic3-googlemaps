@@ -7,13 +7,62 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Giúp đỡ</ion-title>
+    <ion-title>{{LANGUAGES.TITLE[LANG]}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <iframe class= 'dmap_help' name= "dmap_help" src="http://www.drdvietnam.org/bandotiepcan/uploads/help.html">
+  <!--
+ <iframe class= 'dmap_help' name= "dmap_help" src="http://www.drdvietnam.org/bandotiepcan/uploads/help.html">
   </iframe>
+
+  -->
+  <div class="main">
+      <div class="content" *ngIf="LANG=='VI'">
+          <p style="text-align: center;color: #f68b21; padding-top: 5px; font-size: 20px; font-weight: bold;margin: 0px;">Câu hỏi trợ giúp</p>
+          <div style="text-align: left;color:#0FA1E0; padding:10px;">
+          <p><b>1.	Tôi có thể tìm thấy ứng dụng D.Map ở đâu? </b></p>
+          <p>Ứng dụng D.Map hiện có trên kho ứng dụng Appstore, CH Play và phiên bản web tại địa chỉ dmap.drdvietnam.org.</p>
+          <p><b>2.	Ứng dụng không hiển thị địa điểm</b></p>
+          <p>Vui lòng kiểm tra và bật chức năng định vị trên ứng dụng.</p>
+          <p>Vui lòng kiểm tra đường truyền internet có ổn định không vì ứng dụng sử dụng 100% internet.</p>
+          <p><b>3.	Tôi chạm nút "Thêm địa điểm" nhưng không hoạt động.</b></p>
+          <p>Vui lòng kiểm tra lại đường truyền internet.</p>
+          <p><b>4. Tôi có thể kiểm tra vị trí địa điểm mình đang khảo sát không?</b></p>
+          <p>Vui lòng CHỌN TOẠ ĐỘ CÔNG TRÌNH, xem vị trí mình đang đứng đã đúng chưa. Nếu chưa đúng, kéo bản đồ đến vị trí đúng và chấm điểm đỏ vào đó để ứng dụng hiểu chính xác vị trí bạn muốn.</p>
+          <p><b>5. Tôi có thể về nhà rồi mới cập nhật lại các địa điểm mình đang khảo sát không?</b></p>
+          <p>Bạn có thể hoàn tất cập nhật tại nhà, nhưng vui lòng CHỌN TOẠ ĐỘ CÔNG TRÌNH để xác định lại vì khi bạn về nhà ứng dụng hiểu vị trí bạn cập nhật nằm ở nhà bạn.</p>
+          <p><b>6.	Tôi đăng nhập không được, phải làm sao?</b></p> 
+          <p>Vui lòng kiểm tra email bạn đăng nhập có đúng email khi đăng ký không?</p>
+          <p>Dùng chức năng quên mật khẩu để lấy lại mật khẩu mới qua email.</p> 
+          <p><b>7.	Tôi cập nhật xong nhưng không thấy địa điểm hiển thị.</b></p> 
+          <p>Vì địa điểm cần thời gian để admin duyệt mới được hiển thị. Bạn sẽ nhận được thông báo tự động ngay khi địa điểm được hiển thị.</p>
+        </div>
+      </div>
+  
+      <div class="content" *ngIf="LANG=='EN'">
+        <p style="text-align: center;color: #f68b21; padding-top: 5px; font-size: 20px; font-weight: bold;margin: 0px;">D.map QA
+          </p>
+        <div style="text-align: left;color:#0FA1E0; padding:10px;">
+            <p><b>1.	Where can I find the D.Map app?</b></p>
+            <p>The D.Map app is available on Appstore and CH Play. You can also use the D.Map through "dmap.drdvietnam.org"</p>
+            <p><b>2.	The location is not displayed on the app</b></p>
+            <p>Please check and turn on the locate mode on your app.</p>
+            <p>Please check your internet connection.</p>
+            <p><b>3.	"Add location" button does not work</b></p>
+            <p>Please check your internet connection.</p>
+            <p><b>4. Can I check the location that I am auditing?</b></p>
+            <p>Please click "Chose the coordinate function" to check your location. If it displays incorrectly, please relocate and click the right displayed place.</p>
+            <p><b>5. Can I save the uncompletely updated places and finish them at home?</b></p>
+            <p>Of course you can continue your work at home. But please relocate your uncompletely updated place because the app will automatically locate yours at home.</p>
+            <p><b>6.	What should I do when signing in fails?</b></p> 
+            <p>Please ensure that you enter the right email address and password as registered.</p>
+            <p>Please use the "Forget password" to reset. The system will send you a new password, please check your email.</p> 
+            <p><b>7.	The updated places are not displayed on the app after completion.</b></p> 
+            <p>Your updated places will be displayed after being approved by Admin. You will receive an automatic anouncement of your published places. Thank you for your patience!</p>
+        </div>
+      </div>
+    </div>
 </ion-content>

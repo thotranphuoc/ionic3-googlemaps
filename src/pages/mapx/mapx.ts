@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, AlertController, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController, ActionSheetController, ViewController } from 'ionic-angular';
 import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
+  MarkerCluster,
+  
   Marker,
   GoogleMapsAnimation,
   MyLocation,
@@ -18,6 +20,7 @@ import { LocalService } from '../../services/local.service';
 import { AutoCompleteModalPage } from '../auto-complete-modal/auto-complete-modal';
 import { AutoCompleteTwoModalPage } from '../auto-complete-two-modal/auto-complete-two-modal';
 import { Storage } from '@ionic/storage';
+import { LangService } from '../../services/lang.service';
 declare var google: any;
 @IonicPage()
 @Component({
@@ -25,6 +28,24 @@ declare var google: any;
   templateUrl: 'mapx.html',
 })
 export class MapxPage {
+// FOR LANGUAGES UPDATE
+  // 1. Set initialize EN
+  LANG = 'VI';
+  // 2. set initialized LANGUAGES
+  LANGUAGES = {
+    placeholderSearch : { EN: 'Search here', VI : 'Tìm địa điểm'},
+    lblHello : { EN: 'Hello', VI : 'Xin chào'},
+    btnInformation : { EN: 'Personal information', VI : 'Thông tin cá nhân'},
+    btnDetails : { EN: 'Details', VI : 'Xem chi tiết'},
+    btnGift : { EN: 'Go with D.Map Contest', VI : 'Giải thưởng và thể lệ cuộc thi'},
+    btnYourLocation : { EN: 'List of your updated places', VI : 'Danh sách địa điểm cập nhật'},
+    btnTypeLocation : { EN: 'Show types of location and place', VI : 'Hiển thị theo loại công trình'},
+    btnIntroduction : { EN: 'About D.Map', VI : 'Giới thiệu'},
+    btnHelp : { EN: 'Help', VI : 'Giúp đỡ'},
+    btnLang : { EN: 'Tiếng Việt', VI : 'English'},
+    btnLogout : { EN: 'Log out', VI : 'Đăng xuất'},
+  };
+  pageId = 'MapxPage';
 
   googleMap: GoogleMap;
   map: any;
@@ -48,13 +69,42 @@ export class MapxPage {
     private loadingService: LoadingService,
     private dbService: DbService,
     private localService: LocalService,
-    private storage: Storage
+    private storage: Storage,
+    private langService: LangService,
+    protected viewCtrl:ViewController,
   ) {
     console.log('constructor');
+    
+  }
+
+  convertArray2Object() {
+    let OBJ: any = {}
+    try {
+      if(this.localService.BASIC_INFOS.LANGUAGES[this.pageId]!=null)
+      {
+        let LANGUAGES: any[] = this.localService.BASIC_INFOS.LANGUAGES[this.pageId];
+        LANGUAGES.forEach(L => {
+          OBJ[L.KEY] = L
+        })
+        console.log(OBJ);
+      }
+    } catch (error) {
+      OBJ=null;
+    }
+    return OBJ;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MapNewPage');
+    setTimeout(() => {
+      // 3. Get selected EN/VI
+      this.LANG = this.langService.LANG;
+      console.log(this.LANG);
+      // 4. Get LANGUAGES from DB
+      if(this.convertArray2Object() != null)
+        this.LANGUAGES = this.convertArray2Object();
+      console.log(this.LANGUAGES);
+    }, 1000);
     if (!window.cordova) {
       console.log('cordova is not available');
       let lat = 10.7891915;
@@ -79,7 +129,7 @@ export class MapxPage {
           this.startInitMap(this.USER_CURRENT_LOCATION);
         })
     }
-
+    this.getLocationTypeSettings();
   }
 
   getCurrentLocation() {
@@ -173,10 +223,11 @@ export class MapxPage {
           console.log('map was loaded fully');
           this.loadingService.hideLoading();
           this.addMarker(this.map, this.localService.USER_CURRENT_LOCATION);
+          
           if (this.LOCATIONS.length > 0) {
             this.loadLocation2Map(this.FILTER_LOCATIONS);
           } else {
-            this.getLocationsx().then(() => {
+            this.getLocationsx_loc(position).then(() => {
               this.loadLocation2Map(this.FILTER_LOCATIONS);
             })
           }
@@ -187,6 +238,7 @@ export class MapxPage {
   loadLocation2Map(LOCATIONS: iLocation[]) {
     console.log("show maps");
     console.log(LOCATIONS);
+
     if (LOCATIONS.length > 0) {
       if (!this.MAKERS_LOADED) {
         this.MAKERS_LOADED = true;
@@ -201,7 +253,11 @@ export class MapxPage {
     } else {
       console.log('this.localService.SHOPs_LOCATION = 0');
     }
+
+
   }
+
+
 
   getLocationsx() {
     return new Promise((resolve, reject) => {
@@ -213,6 +269,7 @@ export class MapxPage {
           this.LOCATIONS_ = Object.assign({}, this.LOCATIONS);
           this.localService.LOCATIONS = this.LOCATIONS;
           if (this.LOCATIONTYPESSET.length > 0) {
+            console.log('Locationtype',this.LOCATIONTYPESSET);
             this.FILTER_LOCATIONS = this.LOCATIONS.filter(LOC => this.LOCATIONTYPESSET.map(L => L.TypeLocation).indexOf(LOC.LocationTypeID) >= 0);
           } else {
             this.FILTER_LOCATIONS = this.LOCATIONS;
@@ -225,6 +282,52 @@ export class MapxPage {
           reject(err);
         })
     })
+  }
+
+  getLocationsx_loc(POS:iPosition) {
+    return new Promise((resolve, reject) => {
+      this.dbService.getLocations_loc(POS)
+        .then((res: any) => {
+          console.log('Location get');
+          console.log(res);
+          this.LOCATIONS = res;
+          this.LOCATIONS_ = Object.assign({}, this.LOCATIONS);
+          this.localService.LOCATIONS = this.LOCATIONS;
+          if (this.LOCATIONTYPESSET.length > 0) {
+            console.log('Locationtype',this.LOCATIONTYPESSET);
+            this.FILTER_LOCATIONS = this.LOCATIONS.filter(LOC => this.LOCATIONTYPESSET.map(L => L.TypeLocation).indexOf(LOC.LocationTypeID) >= 0);
+          } else {
+            this.FILTER_LOCATIONS = this.LOCATIONS;
+          }
+          console.log(this.FILTER_LOCATIONS);
+          resolve();
+        })
+        .catch(err => {
+          console.log(err);
+          reject(err);
+        })
+    })
+  }
+
+  // Get các loại địa điểm cần show
+  getLocationTypeSettings() {
+    this.LOCATIONTYPESSET = [];
+    let email = null;
+    if (this.localService.USER) {
+      email = this.localService.USER.Email
+    }
+    if (this.localService.USER) {
+      this.dbService.locationTypeSettingsGet(this.localService.USER.Email)
+        .then((res: any) => {
+          console.log(res);
+          this.LOCATIONTYPESSET = res;
+          // this.getLocationTypes();
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+
   }
 
   updateSearch() {
@@ -256,6 +359,9 @@ export class MapxPage {
       title: 'Bạn đang ở đây'
     });
   }
+
+
+
 
   //Search directions between two location
   searchDirections() {
@@ -319,7 +425,7 @@ export class MapxPage {
     }
   }
 
-  presentActionSheet() {
+  /*presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Xin chào: ' + this.localService.USER.FullName,
       buttons: [
@@ -377,6 +483,87 @@ export class MapxPage {
             this.storage.set("Username", '');
             this.storage.set("Password", '');
             this.navCtrl.push('LoginPage');
+          }
+        }
+      ]
+    });
+
+    actionSheet.present();
+  }*/
+
+  presentActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: this.LANGUAGES.lblHello[this.LANG] +': ' + this.localService.USER.FullName,
+      buttons: [
+        {
+          text: this.LANGUAGES.btnInformation[this.LANG],
+          handler: () => {
+            console.log('Thông tin cá nhân');
+            this.navCtrl.push('ProfileUpdatePage');
+          }
+        },
+        {
+          text: this.LANGUAGES.btnGift[this.LANG],
+          handler: () => {
+            console.log('Quà tặng và giải thưởng');
+            this.navCtrl.push('GiftPage');
+          }
+        },
+        {
+          text: this.LANGUAGES.btnYourLocation[this.LANG],
+          handler: () => {
+            console.log('Danh sách địa điểm cập nhật');
+            this.navCtrl.push('LocationHistoryPage');
+          }
+        },
+        {
+          text: this.LANGUAGES.btnTypeLocation[this.LANG],
+          // role: 'destructive',
+          handler: () => {
+            console.log('Hiển thị theo loại công trình');
+            this.navCtrl.push('LocationSettingPage');
+          }
+        },
+
+        {
+          text: this.LANGUAGES.btnIntroduction[this.LANG],
+          handler: () => {
+            console.log('Giới thiệu');
+            this.navCtrl.push('InformationPage');
+          }
+        },
+
+        {
+          text: this.LANGUAGES.btnHelp[this.LANG],
+          handler: () => {
+            console.log('Giúp đỡ');
+            this.navCtrl.push('DmapHelpPage');
+          }
+        },
+        {
+          text: this.LANGUAGES.btnLang[this.LANG],
+          handler: () => {
+            console.log('Giúp đỡ');
+            //this.navCtrl.push('DmapHelpPage');
+            if(this.LANG=='EN')
+            {
+              this.langService.LANG='VI';
+              this.LANG='VI';
+            }
+            else{
+              this.langService.LANG='EN';
+              this.LANG='EN';
+            }
+          }
+        },
+        {
+          text: this.LANGUAGES.btnLogout[this.LANG],
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+            //this.localService.USER = null;
+            //this.navCtrl.push('LoginPage');
+            //this.viewCtrl.dismiss();
           }
         }
       ]

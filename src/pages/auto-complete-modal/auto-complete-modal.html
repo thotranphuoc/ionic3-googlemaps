@@ -7,7 +7,7 @@
         </button>
       </ion-buttons>
       <ion-searchbar [(ngModel)]="autocomplete.query" [showCancelButton]="true" (ionInput)="updateSearch()"
-        (ionCancel)="dismiss()" placeholder="Nhập địa chỉ"></ion-searchbar>
+        (ionCancel)="dismiss()" placeholder="{{LANGUAGES.placeholderAddress[LANG]}}"></ion-searchbar>
     </ion-toolbar>
   </ion-header>
 

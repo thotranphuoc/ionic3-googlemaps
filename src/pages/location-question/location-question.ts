@@ -4,6 +4,7 @@ import { ThrowStmt } from '@angular/compiler';
 import { LocalService } from '../../services/local.service';
 import { iUser } from '../../interfaces/user.interface';
 import { DbService } from '../../services/db.service';
+import { LangService } from '../../services/lang.service';
 
 @IonicPage()
 @Component({
@@ -11,6 +12,17 @@ import { DbService } from '../../services/db.service';
   templateUrl: 'location-question.html',
 })
 export class LocationQuestionPage {
+  // FOR LANGUAGES UPDATE
+  // 1. Set initialize EN
+  LANG = 'VI';
+  // 2. set initialized LANGUAGES
+  LANGUAGES = {
+    TITLE : { EN: 'Questions', VI : 'Câu hỏi'},
+    btnLevel : { EN: 'Level', VI : 'Cấp'},
+    btnHelp : { EN: 'Help', VI : 'Giúp đỡ'},
+  };
+  pageId = 'LocationQuestionPage';
+
   QUESTIONS: any[] = [];
   SHOWN_QUESTION;
   RESULT = '';
@@ -20,7 +32,8 @@ export class LocationQuestionPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private localService: LocalService,
-    private dbService: DbService
+    private dbService: DbService,
+    private langService: LangService
   ) {
     this.QUESTIONS = this.navParams.data.QUESTIONS;
     this.SHOWN_QUESTION = this.QUESTIONS[0];
@@ -29,8 +42,36 @@ export class LocationQuestionPage {
     // this.RESULT = this.RESULT.concat(this.SHOWN_QUESTION.id + '-');
   }
 
+  convertArray2Object() {
+    let OBJ: any = {}
+    try {
+      if(this.localService.BASIC_INFOS.LANGUAGES[this.pageId]!=null)
+      {
+        let LANGUAGES: any[] = this.localService.BASIC_INFOS.LANGUAGES[this.pageId];
+        LANGUAGES.forEach(L => {
+          OBJ[L.KEY] = L
+        })
+        console.log(OBJ);
+      }
+    } catch (error) {
+      OBJ=null;
+    }
+    
+    
+    return OBJ;
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad LocationQuestionPage');
+    setTimeout(() => {
+      // 3. Get selected EN/VI
+      this.LANG = this.langService.LANG;
+      console.log(this.LANG);
+      // 4. Get LANGUAGES from DB
+      if(this.convertArray2Object() != null)
+        this.LANGUAGES = this.convertArray2Object();
+      console.log(this.LANGUAGES);
+    }, 1000);
+    
   }
 
   ionViewWillLoad(){
@@ -79,6 +120,10 @@ export class LocationQuestionPage {
   }
 
 
+doCancel()
+{
+  this.navCtrl.pop();
+}
 
 
 

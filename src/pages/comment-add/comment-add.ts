@@ -40,6 +40,7 @@ export class CommentAddPage {
       this.getComments();
     }else{
       this.navCtrl.setRoot('MapxPage');
+      //this.viewCtrl.dismiss();
     }
   }
 

@@ -7,10 +7,82 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Quà tặng</ion-title>
+    <ion-title>{{LANGUAGES.TITLE[LANG]}}</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <iframe class= 'gift' name= "gift" src="http://www.drdvietnam.org/bandotiepcan/uploads/gift.php">
+  <!--
+<iframe class= 'gift' name= "gift" src="https://www.drdvietnam.org/bandotiepcan/uploads/gift.php">
   </iframe>
+  -->
+  <div class="main">
+      <div class="content" *ngIf="LANG=='VI'">
+          <p style="text-align: center;color: #f68b21; padding-top: 5px; font-size: 20px; font-weight: bold;margin: 0px;">Giải thưởng và thể lệ cuộc thi <br/>
+            ĐỒNG HÀNH CÙNG D.MAP
+            </p>
+          <div style="text-align: left;color:#0FA1E0; padding:10px;">
+            <p><b>1. Giải thưởng:</b></p>
+          <p>- 01 giải nhất: một chuyến đi Singapore 3 ngày 2 đêm dành cho 2 người (giải thưởng không quy đổi thành tiền mặt)</p>
+          <p>- 10 giải dành cho các tổ chức, câu lạc có số thành viên sử dụng D.Map nhiều nhất, mỗi giải trị giá 2.200.000 đồng</p>
+          <p>- 10 giải dành cho Facebookers có các bài viết có lượng tương tác nhiều nhất (like, share, comments), mỗi giải trị giá 2.200.000 đồng</p>
+          <p>- Ngoài ra còn có các quà tặng, voucher dành cho người dùng có từ 10 bài viết ý nghĩa trên trang cá nhân và có gắn hashtag #DRDVietnam #D.Map #Đồng-hành-cùng-D.Map, #Thêm-điểm-đến-thêm-niềm-vui, #Không-bỏ-ai-lại-phía-sau</p>
+          <p><b>2. Thời gian tính điểm: từ 11/04/2019 đến 15/11/2019</b></p>
+          <p><b>3. Đối tượng tham gia:</b></p>
+          <p>- Tất cả cá nhân, tổ chức, không phân biệt khuyết tật hay không khuyết tật, hay lĩnh vực hoạt động của tổ chức</p>
+          <p><b>4. Cách thức tham gia:</b></p>
+          <p>- Người dùng (1) tải ứng dụng D.Map trên Appstore hoặc CH Play với từ khoá D.Map, (2) cài đặt ứng dụng, (3) đăng ký và (4) sử dụng các chức năng của ứng dụng để cập nhật thông tin các công trình/địa điểm mình đến</p>
+          <p>- Người dùng chia sẻ trang thông tin Facebook DRDVietnam, giới thiệu bạn bè cùng sử dụng ứng dụng D.Map</p>
+          <p><b>5. Cách tính điểm:</b></p>
+          <p>a. Tải, cài đặt và đăng ký sử dụng ứng dụng: 100 điểm</p>
+          <p>b. Khảo sát và cập nhật thông tin 01 hoặc nhiều công trình/địa điểm công cộng bất kỳ (không trùng lặp và được admin duyệt). Với mỗi câu hỏi khảo sát được 20 điểm.</p>
+          <p>c. Giới thiệu được 01 người mới sử dụng D.Map trên trang Facebook cá nhân (có kèm ảnh chụp người được giới thiệu tải, cài đặt và đăng ký thành công): 100 điểm</p>
+          <p>d. Chia sẻ thông tin từ Fanpage DRDVietnam lên trang Facebook cá nhân: 100 điểm</p>
+          <p>e. Post bài viết liên quan tiếp cận và D.Map trên trang cá nhân và share qua Facebook DRDVietnam: 100 điểm</p>
+          <p>f. Vận động cải thiện được 01 công trình/địa điểm: 500 điểm</p>
+          <p>Chú ý: Phần c,d,e,f người dùng cung cấp bằng chứng để ban tổ chức cộng điểm khi tổng kết chiến dịch.</p>
+          <p><b>6. Công bố và trao giải:</b></p> 
+          <p>-	Giải thưởng và người thắng giải sẽ được công bố công khai trên các kênh thông tin của DRD</p>
+          <p>-	Buổi tổng kết trao giải thưởng sẽ được tổ chức vào ngày 1/12/2019</p> 
+          <p><b>7. Điều kiện:</b></p> 
+          <p>-	Người dùng đồng ý để Ban tổ chức được toàn quyền sử dụng hình ảnh, bài viết và thông tin cá nhân phục vụ cho việc truyền thông trong khuôn khổ chương trình</p>
+          <p>-	Người dùng chịu trách nhiệm về nội dung và các thông tin liên quan đến hoạt động của người dùng trên trang cá nhân</p>
+          <p>-	Người dùng không đưa các nội dung liên quan đến yếu tố chính trị, tôn giáo và các vấn đề nhạy cảm, vi phạm pháp luật trên các kênh thông tin của DRD.</p>
+          <p>-	Người dùng được khuyến khích sử dụng ngôn từ trong sáng, không công kích hay phỉ bán cá nhân, tổ chức.</p>
+        </div>
+      </div>
+  
+      <div class="content" *ngIf="LANG=='EN'">
+        <p style="text-align: center;color: #f68b21; padding-top: 5px; font-size: 20px; font-weight: bold;margin: 0px;">Go with D.Map Contest
+          </p>
+        <div style="text-align: left;color:#0FA1E0; padding:10px;">
+          <p><b>1. Prize:</b></p>
+          <p>- 01 first prize: A 3-day trip (for 2 persons) to Singapore to observe this country's accessibility (approximately 1,500USD)</p>
+          <p>- 10 prizes for organizations or clubs with the highest number of members using the D.Map (approximately 100USD/prize)</p>
+          <p>- 10 prizes for Facebookers using the D.Map having the highest number of likes, shares, and comments (approximately 100USD/prize)</p>
+          <p>- Gifts, and vouchers for users who have at least 10 meaningful posts with the hashtag #DRDVietnam #DMap #Đồng_hành_cùng_D.Map, #Thêm_điểm_đến_thêm_niềm_vui, #Không_bỏ_ai_lại_phía_sau</p>
+          <p><b>2. Duration:</b> from 11 April 2019 to 15 November 2019</p>
+          <p><b>3. Participants:</b></p>
+          <p>- The contest is for all individuals with and without disabilities and organizations working in non/disability section.</p>
+          <p><b>4. How to be a winner:</b></p>
+          <p>- Users (1) should download the D.Map app on Appstore and CH Play by typing the key word "D.Map", (2) install, (3) sign up and (4) use its functions to add the public places with accessibility-related information to the D.Map.</p>
+          <p>- Users share the DRDVietnam Fanpage and invite friends and others to use the app.</p>
+          <p><b>5. How to get the score:</b></p>
+          <p>a. Download and install the app,  register an account and use it: 100 points</p>
+          <p>b. Audit and add 01 or more public places to the D.Map (induplicate and approved by admin) by completing a set of questions: 20 points for each question</p>
+          <p>c. Successfully invite a new user on Facebook (including the attached photos as evidence): 100 points</p>
+          <p>d. Share the DRDVietnam Fanpage on users' personal page: 100 points</p>
+          <p>e. Write and post a status related to accessibility and the D.Map on users' page and share it on the DRDVietnam Fanpage: 100 points</p>
+          <p>f. Successfully advocate for a modified public place: 500 points</p>
+          <p>Note: Users should provide evidences for part c, d, e, and f so that the score is recorded when closing the contest.</p>
+          <p><b>6. Gala event:</b></p> 
+          <p>-	Prizes and the winner will be published on the DRD's media channels</p>
+          <p>-	The Gala event will be held on 1 December 2019</p> 
+          <p><b>7. Conditions:</b></p> 
+          <p>-	Participating the contest means that users agree that DRD have the right to use photos, posts and personal information in serving the purpose of media.</p>
+          <p>-	Users should take their responsibility for their activities on Facebook</p>
+          <p>-	Users should not provide the sensitive contents related to political, religious, sexual, and illegal issues on DRD's media channels.</p>
+          <p>-	Users are encouraged to use the appropriate language and avoid defaming individuals and organizations.</p>
+        </div>
+      </div>
+    </div>
 </ion-content>

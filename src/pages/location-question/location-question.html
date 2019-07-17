@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Câu hỏi</ion-title>
+    <ion-title>{{LANGUAGES.TITLE[LANG]}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -26,24 +26,28 @@
                     <label id="score">{{USER.Score}}</label>
                   </ion-col>
                   <ion-col>
-                      <label id="level">Level : {{USER.Level}}</label>
+                      <label id="level">{{LANGUAGES.btnLevel[LANG]}} : {{USER.Level}}</label>
                   </ion-col>
                 </ion-row>
               </ion-grid>
         </div>
         <div class="help_question">
-          <label><a href="#">Giúp đỡ</a></label>
+          <label><a href="#">{{LANGUAGES.btnHelp[LANG]}}</a></label>
         </div>
 
         <div class="image_desc">
         <img [src]="SHOWN_QUESTION.imgdata">
         </div>
 
-        <div class="content_question">
+        <div class="content_question" *ngIf="LANG=='VI'">
             {{SHOWN_QUESTION.question_details}}
         </div>
 
-        <div class="btn_question">
+        <div class="content_question" *ngIf="LANG=='EN'">
+            {{SHOWN_QUESTION.question_details_en}}
+        </div>
+
+        <div class="btn_question" *ngIf="LANG=='VI'">
             <ion-grid>
                 <ion-row>
                   <ion-col>
@@ -53,11 +57,39 @@
                       <button (click)="nextQuest('No',SHOWN_QUESTION.next_no)">{{SHOWN_QUESTION.answer_no}}</button>
                   </ion-col>
                   <ion-col>
-                      <button>Bỏ qua bộ câu hỏi</button>
+                    <button (click)="nextQuest('N/A',SHOWN_QUESTION.next_na)" style="background: #ff0; color: #f68b21;">{{SHOWN_QUESTION.NA}}</button>
+                </ion-col>
+                <!--
+                  <ion-col>
+                      <button (click)="doCancel()" >Bỏ qua bộ câu hỏi</button>
                   </ion-col>
+                -->
+                 
                 </ion-row>
               </ion-grid>
         </div>
+
+        <div class="btn_question" *ngIf="LANG=='EN'">
+          <ion-grid>
+              <ion-row>
+                <ion-col>
+                    <button (click)="nextQuest('Yes',SHOWN_QUESTION.next_yes)">{{SHOWN_QUESTION.answer_yes_en}}</button>
+                </ion-col>
+                <ion-col>
+                    <button (click)="nextQuest('No',SHOWN_QUESTION.next_no)">{{SHOWN_QUESTION.answer_no_en}}</button>
+                </ion-col>
+                <ion-col>
+                  <button (click)="nextQuest('N/A',SHOWN_QUESTION.next_na)" style="background: #ff0; color: #f68b21;">{{SHOWN_QUESTION.NA_en}}</button>
+              </ion-col>
+              <!--
+                <ion-col>
+                    <button (click)="doCancel()" >Bỏ qua bộ câu hỏi</button>
+                </ion-col>
+              -->
+               
+              </ion-row>
+            </ion-grid>
+      </div>
 
 
     </div>

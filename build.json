@@ -1,0 +1,18 @@
+{
+    "android": {
+        "debug": {
+            "keystore":"tskeystore.jks",
+			"storePassword":"123456",
+			"alias":"trangson",
+			"password":"123456",
+			"keystoreType":""
+        },
+        "release": {
+            "keystore":"tskeystore.jks",
+			"storePassword":"123456",
+			"alias":"trangson",
+			"password":"123456",
+			"keystoreType":""
+        }
+    }
+}

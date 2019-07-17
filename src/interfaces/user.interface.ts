@@ -12,6 +12,8 @@ export interface iUser {
     Phone: string,
     Score: string,
     lat: string,
-    lng: string
+    lng: string,
+    Team:string,
+    Introduction:string,
     
 }

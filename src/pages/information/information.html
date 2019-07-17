@@ -7,13 +7,13 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Thông tin Dmap</ion-title>
+    <ion-title>{{LANGUAGES.TITLE[LANG]}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 <ion-content>
   <div class="main">
-    <div class="content">
+    <div class="content" *ngIf="LANG=='VI'">
       <b>D.Map là gì?</b><br/>
       D.Map, viết tắt của Disability Map, là bản đồ hướng đến việc giúp người khuyết tật tìm kiếm các công trình công cộng tiếp cận.
       Theo Luật Người khuyết tật Việt Nam, có hiệu lực từ ngày 01/01/2011: "Tiếp cận là việc người khuyết tật sử dụng được công trình công cộng, phương tiện giao thông, công nghệ thông tin, dịch vụ văn hoá, thể thao, du lịch và dịch vụ khác phù hợp để có thể hoà nhập cộng đồng."
@@ -26,13 +26,28 @@
       <br/>Ứng dụng bản đồ tiếp cận DMap giúp nâng cao sự hoà nhập của người khuyết tật vào xã hội.
       <br/><b>Đối với người khuyết tật:</b> DMap là một kênh thông tin hữu hiệu để có thể tìm kiếm các địa điểm được xây dựng có hạng mục tiếp cận (công viên, công sở, văn phòng, quán xá…, nơi đáp ứng các nhu cầu cần thiết của mọi người, bao gồm cả người khuyết tật). Những thông tin này đặc biệt quan trọng với NKT, người già, người khuyết tật tạm thời…khi họ có kế hoạch di chuyển.
       <br/><b>Đối với người không khuyết tật:</b> DMap là dịp để thể hiện sự quan tâm đến và góp phần hỗ trợ người khuyết tật. Ứng dụng này cũng đồng thời giúp cộng đồng nhận thức về những khó khăn và nhu cầu hoà nhập chính đáng của người khuyết tật trong bối cảnh hạ tầng đô thị chưa đáp ứng.
-      
       <br/>Về lâu dài, DRD kỳ vọng rằng với DMap, nhận thức của ngày càng nhiều người trong xã hội sẽ tác động tích cực đến hành vi của người dân và cơ quan chính quyền để các công trình công cộng được điều chỉnh và xây dựng theo hướng tiếp cận.
-      
       <br/><b>DMap hiện có phiên bản song ngữ Việt - Anh trên nền tảng IOS và Android.</b>
-      <br/>iOS: https://goo.gl/9uA3fn
-      <br/>Android: https://goo.gl/N4DWPF
       <br/>DMap ra mắt chiến dịch truyền thông vào ngày 12 tháng 4 năm 2019.
+      
+    </div>
+
+    <div class="content" *ngIf="LANG=='EN'">
+      <b>What is D.Map?</b><br/>
+      D.Map, which stands for Disability Map, is a map application that aims to help people with disabilities to search for accessible infrastructures.
+      Accessibility is defined in Vietnam Law on People with Disabilities, which has been effective since January 1st, 2011: "Accessibility is the fact that people with disabilities can have access to public infrastructures, transportation, information technology, cultural services, sports, tourism and other services to integrate into the community."
+The database of D.Map contains different types of public infrastructures, such as restaurants, shopping malls, entertainment centers, religious buildings…
+      <br/><b>Who develops DMap?</b>
+      <br/>D.Map is a social project set up by Disability Research and Capacity Development (DRD) and Hoa Sen University since 2015. This project is sponsored by UNIID SEA (Universities and Councils Network on Innovation for Inclusive Development in Southeast Asia).
+      D.Map is based on another project of paper map which had been developed by DRD from 2011 to 2012.
+      In September 2017, DRD continued to be received fund from USAID for project "Access For All" 2018-2020 term. In the new term of project, one of the main activities belongs with the project objective "Building PWD's capacity in Tay Ninh and Binh Dinh (two provinces of the project) on public works access right" that is to develop and encourage PWDs/people without disabilities to download and use D.Map as well as more often update information/location to enrich the supporting PWDs application.        
+      <br/><b>What is D.Map used for?</b>
+      <br/>D.Map's upmost aim is to advocate for the inclusion of people with disabilities in the society as users (with disabilities and without disabilities) can evaluate, comment and update accessibility-related information of public places.
+      <br/><b>For people with disabilities:</b> D.Map is a database of accessibility-related information of public places (parks, office buildings, restaurants,…). This information is especially important for people with disabilities, the elderly, temporarily-disabled persons, etc. when they plan their daily trips and traveling.
+      <br/><b>For people without disabilities:</b> D.Map is an opportunity to express their interest and contribute to social change. The App will help community members to understand the challenges faced by people with disabilities in their daily activities and the necessity of accessible environment for the improvement of quality of life of people with disabilities in Vietnam.
+      <br/>In the long term, D.Map use can help raise awareness and motivate public demand for accessibility modification of public places.
+      <br/><b>DMap supports both English and Vietnamese, working on IOS and Android.</b>
+      <br/>DMap was released on April 12, 2019.
       
     </div>
     <div class="footer">

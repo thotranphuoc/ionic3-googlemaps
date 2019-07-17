@@ -21,6 +21,8 @@ export class RegisterPage {
   diachi = '';
   email = '';
   sodt = '';
+  team ='';
+  introduction='';
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -34,7 +36,7 @@ export class RegisterPage {
   }
 
   register() {
-    this.dbService.userNewRegister(this.fullname, this.matkhau, this.diachi, this.email, this.sodt)
+    this.dbService.userNewRegister(this.fullname, this.matkhau, this.diachi, this.email, this.sodt, this.team, this.introduction)
       .catch(err => {
         console.log(err);
       })
@@ -42,7 +44,7 @@ export class RegisterPage {
         console.log(res);
         if (res.result == '1') {
           // alert('Chúc mừng bạn đã đăng ký thành công tài khoản DMAP');
-          this.appService.showAlert('', 'Chúc mừng bạn đã đăng ký thành công tài khoản DMAP')
+          this.appService.showAlert('', 'Chúc mừng bạn đã đăng ký thành công tài khoản DMAP! Xin vui lòng đăng nhập email để xác nhận tài khoản!')
           this.navCtrl.setRoot('LoginPage')
         }
         else {
