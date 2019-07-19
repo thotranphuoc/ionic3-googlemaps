@@ -147,7 +147,7 @@ export class DbService {
     }
 
     locationValidationDetailGet(ID){
-        let url = 'https://drdvietnam.org/bandotiepcan/service?action=getLocationInfoDetail&LocationID='+ID;
+        let url = 'https://drdvietnam.org/bandotiepcan/service?action=getLocationInfoDetailV2&LocationID='+ID;
         return this.httpClient.get(url).toPromise();
     }
 

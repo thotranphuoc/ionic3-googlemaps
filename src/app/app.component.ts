@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AppUpdate } from '@ionic-native/app-update/ngx';
 
 // import { HomePage } from '../pages/home/home';
 // import { PolylinePage } from '../pages/polyline/polyline';
@@ -28,9 +29,16 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(
+    public platform: Platform, 
+    public statusBar: StatusBar, 
+    public splashScreen: SplashScreen,
+    //private appUpdate: AppUpdate
+    
+    ) {
     this.initializeApp();
-
+    //const updateUrl = 'https://www.drdvietnam.org/dmap/service/update.xml';
+    //this.appUpdate.checkAppUpdate(updateUrl).then(() => { console.log('Cap nhat phien ban: ','Update available') });
     // // used for an example of ngFor and navigation
     // this.pages = [
     //   { title: 'Home', component: HomePage },
@@ -51,6 +59,8 @@ export class MyApp {
     // ];
 
   }
+
+  
 
   initializeApp() {
     this.platform.ready().then(() => {

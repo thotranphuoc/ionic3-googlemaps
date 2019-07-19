@@ -51,6 +51,7 @@ import { LangServicePage } from '../pages/lang-service/lang-service';
 import { LangService } from '../services/lang.service';
 import { CirclePage } from '../pages/circle/circle';
 import { MarkerClusterPage } from '../pages/marker-cluster/marker-cluster';
+import {AppUpdate} from "@ionic-native/app-update";
 firebase.initializeApp(firebaseConfig);
 @NgModule({
   declarations: [
@@ -110,6 +111,7 @@ firebase.initializeApp(firebaseConfig);
     StatusBar,
     SplashScreen,
     GoogleMaps,
+    
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     // from Dmap
     LoadingService,
@@ -121,6 +123,7 @@ firebase.initializeApp(firebaseConfig);
     AppService,
     ImageService,
     Geolocation,
+    
   ]
 })
 export class AppModule { }

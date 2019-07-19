@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Đăng ký</ion-title>
+    <ion-title>{{LANGUAGES.TITLE[LANG]}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,16 +16,16 @@
 <ion-content>
     <div class="main" text-center >
         <div class="inputs">
-            <input type="text" [(ngModel)]="fullname" placeholder="Họ và tên"/>
-            <input type="password" [(ngModel)]="matkhau" placeholder="Mật khẩu"/>
-            <input type="text" [(ngModel)]="diachi" placeholder="Địa chỉ"/>
-            <input type="text" [(ngModel)]="email" placeholder="Email"/>
-            <input type="text" [(ngModel)]="sodt" placeholder="Số điện thoại"/>
-            <input type="text" [(ngModel)]="team" placeholder="Hội/Nhóm"/>
-            <input type="text" [(ngModel)]="introduction" placeholder="Người giới thiệu"/>
+            <input type="text" [(ngModel)]="fullname" placeholder="{{LANGUAGES.placeholderFullName[LANG]}}"/>
+            <input type="password" [(ngModel)]="matkhau" placeholder="{{LANGUAGES.placeholderPassword[LANG]}}"/>
+            <input type="text" [(ngModel)]="diachi" placeholder="{{LANGUAGES.placeholderAddress[LANG]}}"/>
+            <input type="text" [(ngModel)]="email" placeholder="{{LANGUAGES.placeholderEmail[LANG]}}"/>
+            <input type="text" [(ngModel)]="sodt" placeholder="{{LANGUAGES.placeholderPhone[LANG]}}"/>
+            <input type="text" [(ngModel)]="team" placeholder="{{LANGUAGES.placeholderTeam[LANG]}}"/>
+            <input type="text" [(ngModel)]="introduction" placeholder="{{LANGUAGES.placeholderIntroduction[LANG]}}"/>
         </div>
         <div class="btn">
-            <button (click)="register()">Đăng ký</button>
+            <button (click)="register()">{{LANGUAGES.btnRegister[LANG]}}</button>
         </div>
           
     </div>

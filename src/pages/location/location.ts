@@ -29,7 +29,7 @@ export class LocationPage {
     lblPhone : { EN: 'Phone Location', VI : 'Điện thoại công trình'},
     lblUser : { EN: 'User Update', VI : 'Người cập nhật'},
     lblLevel : { EN: 'Level', VI : 'Cấp'},
-    lblInformation : { EN: 'Location information (green: approaching PWD, red: not yet approaching PWD)', VI : 'Thông tin địa điểm (màu xanh: tiếp cận NKT, màu đỏ: chưa tiếp cận NKT)'},
+    lblInformation : { EN: 'Location information (green: approaching PWD, red: not yet approaching PWD, yellow: N/A)', VI : 'Thông tin địa điểm (màu xanh: tiếp cận NKT, màu đỏ: chưa tiếp cận NKT, màu vàng: Không cần thiết)'},
     lblGateway : { EN: 'Gateway', VI : 'Lối vào'},
     lblDoor : { EN: 'Door', VI : 'Cửa'},
     lblTableWork : { EN: 'Table work', VI : 'Bàn làm việc'},
@@ -45,7 +45,8 @@ export class LocationPage {
   ID: any;
   LOCATION: any = null;
   COMMENTS = [];
-  VALIDATIONS = [false, false, false, false, false, false];
+  //VALIDATIONS = [false, false, false, false, false, false];
+  VALIDATIONS = [0, 0, 0, 0, 0, 0];
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -140,9 +141,16 @@ export class LocationPage {
       let VALID = res;
       VALID.forEach(V=>{
         let index = Number(V.ACType_ID_Ref)-1;
-        this.VALIDATIONS[index]= true;
+        let result=0;
+        console.log('V: ',V);
+        if(V.Answer=="Yes")
+          result=1;
+        else
+          if(V.Answer=="N\/A")
+            result=2;
+        this.VALIDATIONS[index]= result;
       })
-      console.log(this.VALIDATIONS);
+      console.log('v2',this.VALIDATIONS);
     })
     .catch(err=>{
       console.log(err);
