@@ -5,7 +5,6 @@ import {
   GoogleMap,
   GoogleMapsEvent,
   MarkerCluster,
-  
   Marker,
   GoogleMapsAnimation,
   MyLocation,
@@ -22,6 +21,8 @@ import { AutoCompleteTwoModalPage } from '../auto-complete-two-modal/auto-comple
 import { Storage } from '@ionic/storage';
 import { LangService } from '../../services/lang.service';
 declare var google: any;
+declare var window: any;
+
 @IonicPage()
 @Component({
   selector: 'page-mapx',
@@ -129,6 +130,8 @@ export class MapxPage {
           this.startInitMap(this.USER_CURRENT_LOCATION);
         })
     }
+
+    
     this.getLocationTypeSettings();
   }
 
@@ -137,7 +140,7 @@ export class MapxPage {
     return this.googleMap.getMyLocation()
   }
 
-  loadMap() {
+  loadMap_() {
     let OPTION = {
       target: {
         lat: 43.0741704,
@@ -146,8 +149,59 @@ export class MapxPage {
       zoom: 18,
       tilt: 30
     }
+    this.addCluster();
     return GoogleMaps.create('mapx', OPTION);
   }
+
+  loadMap() {
+    console.log('loadmap', this.LOCATIONS)
+    this.map = GoogleMaps.create('mapx', {
+      'camera': {
+        'target': {
+          "lat": 10.7891915,
+          "lng": 106.7405075
+        },
+        'zoom': 10
+      }
+    });
+    this.addCluster();
+    return this.map;
+  }
+
+  addCluster() {
+    //this.LOCATIONS=this.dummyData1();
+    console.log('Cluster', this.LOCATIONS);
+    this.map.addMarkerCluster({
+      markers: this.LOCATIONS,
+      icons: [
+        {
+          min: 3,
+          max: 9,
+          url: "./assets/markercluster/small.png",
+          label: {
+            color: "white"
+          }
+        },
+        {
+          min: 10,
+          url: "./assets/markercluster/large.png",
+          label: {
+            color: "white"
+          }
+        }
+      ]
+    }).then((markerCluster: MarkerCluster) =>{
+      console.log('test 2',markerCluster);
+      markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((params) => {
+        let marker: Marker = params[1];
+        marker.setTitle(marker.get("name"));
+        marker.setSnippet(marker.get("address"));
+        marker.showInfoWindow();
+      });
+    })
+
+  }
+
 
   // getMyLocation() {
   //   return this.googleMap.getMyLocation()
@@ -225,10 +279,20 @@ export class MapxPage {
           this.addMarker(this.map, this.localService.USER_CURRENT_LOCATION);
           
           if (this.LOCATIONS.length > 0) {
-            this.loadLocation2Map(this.FILTER_LOCATIONS);
+            //this.loadLocation2Map(this.FILTER_LOCATIONS);
+            this.dbService.getLocations_location().then((res: any) => {
+              this.LOCATIONS = res;
+              console.log('res',this.LOCATIONS);
+              this.loadMap();
+            }).catch();
           } else {
             this.getLocationsx_loc(position).then(() => {
-              this.loadLocation2Map(this.FILTER_LOCATIONS);
+              this.dbService.getLocations_location().then((res: any) => {
+                this.LOCATIONS = res;
+                console.log('res',this.LOCATIONS);
+                this.loadMap();
+              }).catch();
+              //this.loadLocation2Map(this.FILTER_LOCATIONS);
             })
           }
         })
@@ -425,71 +489,58 @@ export class MapxPage {
     }
   }
 
-  /*presentActionSheet() {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'Xin chào: ' + this.localService.USER.FullName,
-      buttons: [
-        {
-          text: 'Thông tin cá nhân',
-          handler: () => {
-            console.log('Thông tin cá nhân');
-            this.navCtrl.push('ProfileUpdatePage');
-          }
-        },
-        {
-          text: 'Quà tặng và giải thưởng',
-          handler: () => {
-            console.log('Quà tặng và giải thưởng');
-            this.navCtrl.push('GiftPage');
-          }
-        },
-        {
-          text: 'Danh sách địa điểm cập nhật',
-          handler: () => {
-            console.log('Danh sách địa điểm cập nhật');
-            this.navCtrl.push('LocationHistoryPage');
-          }
-        },
-        {
-          text: 'Hiển thị theo loại công trình',
-          // role: 'destructive',
-          handler: () => {
-            console.log('Hiển thị theo loại công trình');
-            this.navCtrl.push('LocationSettingPage');
-          }
-        },
 
-        {
-          text: 'Giới thiệu',
-          handler: () => {
-            console.log('Giới thiệu');
-            this.navCtrl.push('InformationPage');
-          }
+  dummyData1() {
+    return [
+      {
+        "position": {
+          "lat": 10.780482,
+          "lng": 106.70223
         },
-
-        {
-          text: 'Giúp đỡ',
-          handler: () => {
-            console.log('Giúp đỡ');
-            this.navCtrl.push('DmapHelpPage');
-          }
+        "name": "Bệnh viện nhi đồng 2",
+        "address": "14 Lý Tự Trọng, P. Bến Nghé, Q. 1, Tp. HCM",
+        "icon": "assets/markercluster/marker.png"
         },
         {
-          text: 'Đăng xuất',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-            this.localService.USER = null;
-            this.storage.set("Username", '');
-            this.storage.set("Password", '');
-            this.navCtrl.push('LoginPage');
-          }
+        "position": {
+        "lat": 10.779495,
+        "lng": 106.68199
+        },
+        "name": "Bệnh viện da liễu",
+        "address": "2 Nguyễn Thông, P. 6, Q. 3, Tp. HCM",
+        "icon": "assets/markercluster/marker.png"
+        },
+        {
+        "position": {
+        "lat": 10.757663,
+        "lng": 106.6587537
+        },
+        "name": "Bệnh viện Chợ Rẫy",
+        "address": "201B Nguyễn Chí Thanh, phường 12, quận 5",
+        "icon": "assets/markercluster/marker.png"
+        },
+        {
+        "position": {
+        "lat": 10.37211,
+        "lng": 106.453621
+        },
+        "name": "Phòng khám đa khoa Hoà Hảo",
+        "address": "254 Hoà Hảo, phường 4, quận 10, HCM",
+        "icon": "assets/markercluster/marker.png"
+        },
+        {
+        "position": {
+        "lat": 10.7685558,
+        "lng": 106.6843567
+        },
+        "name": "Bệnh viện Từ Dũ",
+        "address": "106 Cống Quỳnh, Phạm Ngũ Lão, Quận 1, TP. HCM",
+        "icon": "assets/markercluster/marker.png"
         }
-      ]
-    });
+    ]
+  }
 
-    actionSheet.present();
-  }*/
+  
 
   presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
@@ -572,3 +623,4 @@ export class MapxPage {
     actionSheet.present();
   }
 }
+

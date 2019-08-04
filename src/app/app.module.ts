@@ -52,6 +52,7 @@ import { LangService } from '../services/lang.service';
 import { CirclePage } from '../pages/circle/circle';
 import { MarkerClusterPage } from '../pages/marker-cluster/marker-cluster';
 import {AppUpdate} from "@ionic-native/app-update";
+import { MarkerClusterPageModule } from '../pages/marker-cluster/marker-cluster.module';
 firebase.initializeApp(firebaseConfig);
 @NgModule({
   declarations: [
@@ -77,11 +78,13 @@ firebase.initializeApp(firebaseConfig);
     BrowserModule,
     FormsModule,
     //LoginPageModule,
+    MarkerClusterPageModule,
     IonicModule.forRoot(MyApp),
     TranslateModule.forRoot(),
     IonicStorageModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAf1-QYPFKYvSP4zsgd1rAPgGv_vsEWCzE',
+      //apiKey: 'AIzaSyCjBaIhoK9XX4eOfeSsPb91bq14DO_gJUc',
       libraries: ['places']
     }),
     HttpClientModule

@@ -29,12 +29,15 @@ export class RegisterPage {
     placeholderFullName : { EN: 'Full Name', VI : 'Họ và tên'},
     placeholderPassword : { EN: 'Password', VI : 'Mật khẩu'},
     placeholderEmail : { EN: 'Email', VI : 'Email'},
+    placeholderConfirmEmail : { EN: 'Confirm Email', VI : 'Confirm Email'},
     placeholderPhone : { EN: 'Phone number', VI : 'Số điện thoại'},
     placeholderAddress : { EN: 'Address', VI : 'Địa chỉ'},
     placeholderTeam : { EN: 'Team/Group', VI : 'Hội/nhóm'},
     placeholderIntroduction : { EN: 'Recommender\'s email address', VI : 'Email Người giới thiệu'},
     registerSuccess : { EN: 'Thank you for your registration. Please check your email and activate your account to complete the registration.', VI : 'Cảm ơn bạn đã đăng ký tài khoản tại D.Map. Vui lòng kiểm tra email, active tài khoản để hoàn thành việc đăng ký!'},
     registerFail : { EN: 'This username/email is taken. Please try another!', VI : 'Tài khoản đã được đăng ký, xin vui lòng chọn tài khoản khác!'},
+    validateEmail : { EN: 'The email addresses do not match email', VI : 'Xác nhận Email không trùng khớp email'},
+    validateEmpty : { EN: 'Please fill full information', VI : 'Xin vui lòng nhập đầy đủ thông tin'},
   };
   pageId = 'RegisterPage';
 
@@ -42,6 +45,7 @@ export class RegisterPage {
   matkhau = '';
   diachi = '';
   email = '';
+  confirmemail = '';
   sodt = '';
   team ='';
   introduction='';
@@ -86,7 +90,8 @@ export class RegisterPage {
   }
 
   register() {
-    this.dbService.userNewRegister(this.fullname, this.matkhau, this.diachi, this.email, this.sodt, this.team, this.introduction)
+    if(this.checkInput() == true){
+      this.dbService.userNewRegister(this.fullname, this.matkhau, this.diachi, this.email, this.sodt, this.team, this.introduction)
       .catch(err => {
         console.log(err);
       })
@@ -102,6 +107,22 @@ export class RegisterPage {
           // alert('Tài khoản đã được đăng ký, xin vui lòng chọn tài khoản khác');
         }
       })
+    }
+  }
+
+  checkInput(){
+    if(this.email=='' || this.fullname=='' || this.diachi=='')
+    {
+      this.appService.showAlert('', this.LANGUAGES.validateEmpty[this.LANG]);
+      return false;
+    }
+    if(this.email != this.confirmemail)
+    {
+      this.appService.showAlert('', this.LANGUAGES.validateEmail[this.LANG]);
+      return false;
+    }
+      
+    return true;
   }
 
 }

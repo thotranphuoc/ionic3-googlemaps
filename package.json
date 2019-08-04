@@ -36,8 +36,6 @@
     "cordova-android": "7.1.4",
     "cordova-browser": "5.0.4",
     "cordova-ios": "^4.5.5",
-    "cordova-plugin-app-update": "2.0.2",
-    "cordova-plugin-appversion": "1.0.0",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-googlemaps": "^2.5.2",
     "cordova-plugin-ionic-webview": "^1.2.1",
@@ -71,12 +69,11 @@
         "LOCATION_WHEN_IN_USE_DESCRIPTION": "This app wants to get your location while this app runs only.",
         "LOCATION_ALWAYS_USAGE_DESCRIPTION": "This app wants to get your location always, even this app runs in background."
       },
-      "cordova-plugin-whitelist": {},
-      "cordova-plugin-app-update": {}
+      "cordova-plugin-whitelist": {}
     },
     "platforms": [
-      "browser",
       "ios",
+      "browser",
       "android"
     ]
   }

@@ -33,22 +33,20 @@ export class MarkerClusterPage {
   }
 
   loadMap() {
-
     this.map = GoogleMaps.create('map_canvas', {
       'camera': {
         'target': {
-          "lat": 21.382314,
-          "lng": -157.933097
+          "lat": 43.0741704,
+          "lng": -89.3809802
         },
         'zoom': 10
       }
     });
-
     this.addCluster(this.dummyData());
   }
 
   addCluster(data) {
-    let markerCluster: MarkerCluster = this.map.addMarkerClusterSync({
+    this.map.addMarkerCluster({
       markers: data,
       icons: [
         {
@@ -67,14 +65,14 @@ export class MarkerClusterPage {
           }
         }
       ]
-    });
-
-    markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((params) => {
-      let marker: Marker = params[1];
-      marker.setTitle(marker.get("name"));
-      marker.setSnippet(marker.get("address"));
-      marker.showInfoWindow();
-    });
+    }).then((markerCluster: MarkerCluster) =>{
+      markerCluster.on(GoogleMapsEvent.MARKER_CLICK).subscribe((params) => {
+        let marker: Marker = params[1];
+        marker.setTitle(marker.get("name"));
+        marker.setSnippet(marker.get("address"));
+        marker.showInfoWindow();
+      });
+    })
 
   }
 

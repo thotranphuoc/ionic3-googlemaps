@@ -29,12 +29,28 @@ export class DbService {
         // })
     }
     getLocations_loc(Loc:iPosition){
-        return this.httpClient.get('https://drdvietnam.org/bandotiepcan/service?action=getAllLocation').toPromise()
+        // .subscribe((res)=>{
+        //     console.log(res);
+        // })
+        return new Promise((resolve, reject) => {
+            this.httpClient.get('https://drdvietnam.org/bandotiepcan/service?action=getAllLocation')
+                    .subscribe(
+                        (res) => {
+                            resolve(res);
+                        },
+                        (err) => {
+                            reject(err);         
+                        }
+                    )
+          })
+    }
+    
+    getLocations_location(){
+        return this.httpClient.get('https://drdvietnam.org/bandotiepcan/service?action=getAllLocationV2').toPromise()
         // .subscribe((res)=>{
         //     console.log(res);
         // })
     }
-    
 
     getLocation(ID: string){
         let url = 'https://drdvietnam.org/bandotiepcan/service?action=getLocation&LocationID='+ID;
